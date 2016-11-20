@@ -10,6 +10,7 @@ if( isset($_GET['method']) ){
 	if ( $_GET['method'] == "setSubCategory" ) { 
 
 		$sub = $classname->setSubCategory();
+		
 		for ($i=0; $i <= count($_POST['property'])-1; $i++) { 
 			$classname->setCatPropertyValue($sub, $_POST['property'][$i], $_POST['value'][$i]);
 		}
@@ -26,7 +27,7 @@ class ClassName {
 		
 		$sqlQuery = "INSERT INTO category SET";
 		$sqlQuery .= "  Name = '". $_POST['name']."'";
-		$sqlQuery .= ", image = '". $_POST['image']."'";
+		$sqlQuery .= ", image = '". $_POST['url']."'";
 		$result = $mysqli->query($sqlQuery);
 		echo mysqli_error($mysqli);
 		header('Location: index.php?method=setCategory');

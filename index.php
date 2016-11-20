@@ -17,6 +17,7 @@
 		</div>
 		<br> <input type="submit">
 	</form>
+	<input type="hidden" id="hidden" value="0">
 	<script type="text/javascript" src="jquery_min.js"></script>
 	<script type="text/javascript" src="components.js"></script>
 	<script type="text/javascript" src="cms.js"       ></script>
