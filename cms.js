@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+  
   var method = getUrlParameter("method");
   var status = getUrlParameter("status");
 
@@ -46,11 +53,12 @@ $(document).ready(function(){
 
   viewWhatNow(method);
 
-  $('#category').select2({
-    tags: "true",
-    placeholder: "Select an option",
-    allowClear: true
-  });
+
+
+  // $('#category').select2({
+  //   placeholder: "Available Categories"
+  // });
+
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {

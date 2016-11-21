@@ -3,36 +3,114 @@ function viewLogin(){
 	viewAddCategory();
 }
 
+var substringMatcher = function(strs, field) {
+	return function findMatches(q, cb) {
+		var matches, substringRegex;
+		matches = [];
+		substrRegex = new RegExp(q, 'i');
+		$.each(strs, function(i, str) {
+			if (substrRegex.test([strs[i][field]])) {
+				matches.push(str);
+			}
+
+		});
+		cb(matches);
+	};
+};
+
 function ajaxCategory(){
 	$.ajax({
 		url: "class_cms.php?method=getCategory"
 	}).done(function(data) {
 		data = jQuery.parseJSON(data);
+
+		var states =[];
 		for (var i = 0; i < data.length; i++) {
 			$('[name=category]').append('<option value="'+data[i].ID+'">'+data[i].Name+'</option>');
+			states.push(data[i].Name, data[i].ID);
 		}
+		
+		$('#name').typeahead(null, {
+			name: 'ID',
+			displayKey: 'Name',
+			source: substringMatcher(data, "Name")
+		}).on('typeahead:selected', function(event, data){
+			$(event.currentTarget).parent().next( "input[name="+event.currentTarget.name+"-key]" ).val(data.ID);
+		});
+
+
 	});
 }
 
-function ajaxProperty(pro, val){
+function ajaxProperty(pro, val, v){
 	$.ajax({
 		url: "class_cms.php?method=getProperty"
 	}).done(function(data) {
 		data = jQuery.parseJSON(data);
+		var nam = [];
+		var valu = [];
+
 		for (var i = 0; i < data.length; i++) {
 			if(data[i].Name){
+				nam.push(data[i]);
 				pro.append('<option value="'+data[i].ID+'">'+data[i].Name+'</option>');
+
 			}else{
+				valu.push(data[i]);
 				val.append('<option value="'+data[i].ID+'">'+data[i].value+'</option>');
+
+			}
+		}
+		if(v){
+			$('[name=name]').typeahead(null, {
+				name: 'ID',
+				displayKey: 'Name',
+				source: substringMatcher(nam, "Name")
+			}).on('typeahead:selected', function(event, data){
+				$(event.currentTarget).parent().next( "input[name="+event.currentTarget.name+"-key]" ).val(data.ID);
+			});
+		}
+		$('[name=value]').typeahead(null, {
+			name: 'ID',
+			displayKey: 'value',
+			source: substringMatcher(valu, "value")
+		}).on('typeahead:selected', function(event, data){
+			$(event.currentTarget).parent().next( "input[name="+event.currentTarget.name+"-key]" ).val(data.ID);
+		});
+
+
+	});
+}
+
+function ajaxValue(event){
+	var id = event.data.name;
+	var src=  $("#property" + event.data.name);
+	var fst = $(src).find('select')[0];
+	var sec = $(src).find('select')[1];
+	var ur = "class_cms.php?method=getValue&ID=" +$(fst).val() ;
+	console.log(ur);
+	$.ajax({
+		url: ur
+	}).done(function(data) {
+		data = jQuery.parseJSON(data);
+		$(sec).html('');
+		$(sec).append('<option value="0">No value</option>')
+		for (var i = 0; i < data.length; i++) {
+			if(data[i].value){
+				$(sec).append('<option value="'+data[i].ID+'">'+data[i].value+'</option>');
 			}
 		}
 	});
 }
 
 function viewAddCategory(){
-	
+
 	$( $('#navbar ul li')[0] ).addClass('active');
-	$('#view').append('<h1>Add category:</h1> <div class="form-group"><label>Name:</label> <input class="form-control" type="text" id="name" name="name"> <select  class="select2-bootstrap-prepend form-control" id="category" name="category"></select></div> <div class="form-group"><label>Image URL:</label> <textarea class="form-control" name="url" ></textarea></div>');
+	$('#view').append('<h1>Add category:</h1> '+
+		'<div class="form-group">'+
+		'<label>Name:</label> <input class="form-control typeahead" type="text" id="name" name="name">'+
+		' <input type="hidden" name="name-key"> </div> <div class="form-group">'+
+		'<label>Image URL:</label> <textarea class="form-control" name="url" ></textarea></div>');
 	$('#foot input').remove();
 	$('#foot').append('<br><input class="form-control" type="submit">');
 
@@ -56,25 +134,31 @@ function addicon(){
 
 function viewAddProperty(){
 	$( $('#navbar ul li')[1] ).addClass('active');
-	$('#view').append('<h1>Property</h1> <div class="form-group"><label>Name:</label> <input class="form-control" type="text" name="name"> <select  class="form-control" name="property"></select> </div> <div class="form-group"><label>Value:</label> <input class="form-control" type="text" name="value"> <select  class="form-control" id="value"></select> </div> <div class="form-group"> <label>Image URL:</label> <textarea class="form-control" name="url" ></textarea></div>');
+	$('#view').append('<h1>Property</h1> <div class="form-group"><label>PropertyName:</label> <input class="form-control typeahead" type="text" name="name"> <input type="hidden" name="name-key"> </div> <div class="form-group"><label>Value:</label> <input class="form-control typeahead" type="text" name="value"> <input type="hidden" name="value-key"> </div> <div class="form-group"> <label>Image URL:</label> <textarea class="form-control" name="url" ></textarea></div>');
 	$('[name=property]').append('<option value="0">No property</option>');
 	$('#value').append('<option value="0">No value</option>');
-	ajaxProperty($('[name=property]'), $('#value'));
+	ajaxProperty($('[name=property]'), $('#value'), true);
 	$('[name=view]').prop('action', 'class_cms.php?method=setProperty');
 }
 
 function viewSubProperty(){
-	
+
 	$('#hidden').val( Number($('#hidden').val()) +1 );
 
 	var len = Number($('#hidden').val());
 
-	$('#view').append('<div class="form-group properties" id="property'+len+'"><br><label>Name:</label> <select  class="form-control" name="property['+len+']"></select> <br> <label>Value:</label> <select  class="form-control" name="value['+len+']"></select> <a href="#" onclick="removeme(\'#property'+len+'\')">X</a></div>');
+	$('#view').append('<div class="form-group properties" id="property'+len+'"><br>'+
+		'<label>Property name:</label>  <select  class="form-control" name="property['+len+']"></select> <br>'+
+		'<label>Property value:</label> <select  class="form-control" name="value['+len+']"></select> '+
+		'<a href="#" onclick="removeme(\'#property'+len+'\')">X</a></div>');
 	$( $('#property'+len+' [name^="property"]')[0] ).append('<option value="0">No property</option>');
 	$( $('#property'+len+' [name^="value"]')[0] ).append('<option value="0">No value</option>');
 
 
-	ajaxProperty( $( $('#property'+len+' [name^="property"]')[0] ), $( $('#property'+len+' [name^="value"]')[0] ) );
+	$( $('#property'+len+' [name^="property"]')[0] ).on( "change", {name: len}, ajaxValue );
+
+
+	ajaxProperty( $( $('#property'+len+' [name^="property"]')[0] ), $( $('#property'+len+' [name^="value"]')[0] ), false );
 }
 
 function viewAddSubCategory(){

@@ -6,11 +6,10 @@
 	<title>CMS</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="select2/css/select2.min.css">
-	<link rel="stylesheet" type="text/css" href="select2/css/select2-bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="typeahead.css">
 	<script type="text/javascript" src="jquery_min.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="select2/js/select2.min.js"></script>
+	<script type="text/javascript" src="typeahead.bundle.js"></script>
 </head>
 <body>
 
