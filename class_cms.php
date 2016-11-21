@@ -27,7 +27,9 @@ class ClassName {
 
 			$sqlQuery = "INSERT INTO category SET";
 
-			$sqlQuery .= "  Name = '". $_POST['name']."'";
+			$sqlQuery .= "  Name = '".  $_POST['name']."'";
+			$sqlQuery .= ", NameAr = '".  $_POST['nameAr']."'";
+			$sqlQuery .= ", NameCh = '".  $_POST['nameCh']."'";
 			$sqlQuery .= ", image = '". $_POST['url']."'";
 			$result = $mysqli->query($sqlQuery);
 			echo mysqli_error($mysqli);
@@ -41,8 +43,10 @@ class ClassName {
 			$mysqli = $db->getConnection();
 
 			$sqlQuery  = "INSERT INTO subcategory SET";
-			$sqlQuery .= "  catID = "   . $_POST['category']   ;
-			$sqlQuery .= ", Name  = '"  . $_POST['name'] . "'" ;
+			$sqlQuery .= "  catID  = "   . $_POST['category']   ;
+			$sqlQuery .= ", Name   = '"  . $_POST['name'] . "'" ;
+			$sqlQuery .= ", NameAr = '"  . $_POST['nameAr'] . "'" ;
+			$sqlQuery .= ", NameCh = '"  . $_POST['nameCh'] . "'" ;
 
 			$result = $mysqli->query($sqlQuery);
 			echo mysqli_error($mysqli);
@@ -73,6 +77,8 @@ class ClassName {
 			$sqlQuery = "INSERT INTO property SET";
 			if($_POST['name-key'] == 0){
 				$sqlQuery .= "  Name = '" . $_POST['name'] ."'";
+				$sqlQuery .= ", NameAr = '" . $_POST['nameAr'] ."'";
+				$sqlQuery .= ", NameCh = '" . $_POST['nameCh'] ."'";
 				$result = $mysqli->query($sqlQuery);
 				echo mysqli_error($mysqli);
 				return $mysqli->insert_id;
@@ -90,6 +96,8 @@ class ClassName {
 
 			$sqlQuery  = "INSERT INTO value SET";
 			$sqlQuery .= "  value = '". $_POST['value'] . "'" ;
+			$sqlQuery .= ", valueAr = '". $_POST['valueAr'] . "'" ;
+			$sqlQuery .= ", valueCh = '". $_POST['valueCh'] . "'" ;
 			$sqlQuery .= ", propertyID = ". $id . "" ;
 
 			$result = $mysqli->query($sqlQuery);

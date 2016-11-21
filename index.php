@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="typeahead.bundle.js"></script>
 </head>
-<body>
+<body style="overflow-y: scroll;">
 
 	<div class="container">
 
@@ -24,7 +24,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">CCMS</a>
+					<a class="navbar-brand" href="#">ALPHA CMS</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse " aria-expanded="false">
 					<ul class="nav navbar-nav">
@@ -41,11 +41,15 @@
 			<div class="row">
 				<div id="view" class="col-sm-5">
 				</div>
-				<div class="col-sm-7" id="foot">
+			</div>
+			<div class="row">
+				<div class="col-sm-5" id="foot">
 					<input class="form-control" type="submit">
 				</div>
 			</div>
 		</form>
+		<br>
+		<br>
 	</div>
 	<input type="hidden" id="hidden" value="0">
 	<script type="text/javascript" src="components.js"></script>

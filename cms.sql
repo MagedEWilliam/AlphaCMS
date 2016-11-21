@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2016 at 05:49 PM
+-- Generation Time: Nov 21, 2016 at 07:46 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -28,9 +28,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `category` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(250) NOT NULL,
+  `Name` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `NameAr` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `NameCh` varchar(250) CHARACTER SET utf8 NOT NULL,
   `image` text NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Name` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -53,8 +56,11 @@ CREATE TABLE IF NOT EXISTS `catproperty` (
 
 CREATE TABLE IF NOT EXISTS `property` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(250) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `Name` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `NameAr` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `NameCh` varchar(250) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Name` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -66,8 +72,11 @@ CREATE TABLE IF NOT EXISTS `property` (
 CREATE TABLE IF NOT EXISTS `subcategory` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `catID` int(11) NOT NULL,
-  `Name` varchar(250) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `Name` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `NameAr` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `NameCh` varchar(250) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Name` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -79,7 +88,9 @@ CREATE TABLE IF NOT EXISTS `subcategory` (
 CREATE TABLE IF NOT EXISTS `value` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `propertyID` int(11) NOT NULL,
-  `value` varchar(250) NOT NULL,
+  `value` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `valueAr` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `ValueCh` varchar(250) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
