@@ -47,7 +47,10 @@ function ajaxProperty(pro, val, v){
 	$.ajax({
 		url: "class_cms.php?method=getProperty"
 	}).done(function(data) {
-		$('html,body').animate({ scrollTop: $('#plusprop').offset().top}, 'fast');
+		var method = getUrlParameter("method");
+		if(method == "setSubCategory"){
+			$('html,body').animate({ scrollTop: $('#plusprop').offset().top}, 'fast');
+		}
 		data = jQuery.parseJSON(data);
 		var nam  = [];
 		var valu = [];
@@ -174,7 +177,7 @@ function viewSubProperty(){
 
 function viewAddSubCategory(){
 	$( $('#navbar ul li')[2] ).addClass('active');
-	$('#view').append('<h1>Add sub-category</h1> <div class="form-group"><label>Category:</label> '+
+	$('#view').append('<h1>Add item</h1> <div class="form-group"><label>Category:</label> '+
 		'<select  class="form-control" name="category"></select></div>'+
 		' <div class="form-group"><label>English Name:</label> <input placeholder="Please Enter in English" class="form-control" type="text" name="name">  '+
 		' <label>Arabic Name:</label>  <input placeholder="برجاء الادخال بالعربي" class="form-control rtl" type="text" name="nameAr">  '+
@@ -183,6 +186,7 @@ function viewAddSubCategory(){
 	$('#foot').prepend('<a href="#" id="plusprop">Add property (+)</a><br><br>');
 	$('[name=view]').prop('action', 'class_cms.php?method=setSubCategory');
 	ajaxCategory();
+
 }
 
 function removeme(e){ $('html,body').animate({ scrollTop: $(e).offset().top}, 'fast'); $(e).remove(); }

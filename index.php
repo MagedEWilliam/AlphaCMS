@@ -29,8 +29,8 @@
 				<div id="navbar" class="navbar-collapse collapse " aria-expanded="false">
 					<ul class="nav navbar-nav">
 						<li><a href="?method=setCategory">Add category</a></li>
-						<li><a href="?method=setProperty">Add property</a></li>
-						<li><a href="?method=setSubCategory">Add sub-category</a></li>
+						<li><a href="?method=setProperty">Add properties</a></li>
+						<li><a href="?method=setSubCategory">Add items</a></li>
 					</ul>
 
 				</div><!--/.nav-collapse -->
