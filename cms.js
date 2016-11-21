@@ -30,9 +30,27 @@ $(document).ready(function(){
 
   function msg(status){ if(status == "success"){}else if(status == "error"){} }
 
-
+  function autoopen(source, text){
+    var len = source.length-1;
+    for (var i = 0; i <= len; i++) {
+      var re = new RegExp(text, 'g');
+      if ( $($(source)[i]).text().match(re) != undefined){
+        console.log("found");
+        $($(source)[i]).show();
+      }else{
+        $($(source)[i]).hide();
+      }
+    }
+    $(source).simulate('mousedown');
+  }
 
   viewWhatNow(method);
+
+  $('#category').select2({
+    tags: "true",
+    placeholder: "Select an option",
+    allowClear: true
+  });
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {
