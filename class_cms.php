@@ -13,7 +13,7 @@ if( isset($_GET['method']) ){
 		foreach ($_POST['property'] as $key => $value) {
 			$classname->setCatPropertyValue($sub, $value, $_POST['value'][$key]);
 		}
-		// header('Location: index.php?method=setSubCategory');
+		header('Location: index.php?method=setSubCategory');
 	}
 	if ( $_GET['method'] == "setProperty"    ) { echo $classname->setValue      (); }
 }
