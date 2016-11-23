@@ -13,7 +13,7 @@ if( isset($_GET['method']) ){
 		foreach ($_POST['property'] as $key => $value) {
 			$classname->setCatPropertyValue($sub, $value, $_POST['value'][$key]);
 		}
-		header('Location: index.php?method=setSubCategory');
+		// header('Location: index.php?method=setSubCategory');
 	}
 	if ( $_GET['method'] == "setProperty"    ) { echo $classname->setValue      (); }
 }
@@ -44,6 +44,7 @@ class ClassName {
 
 			$sqlQuery  = "INSERT INTO subcategory SET";
 			$sqlQuery .= "  catID  = "   . $_POST['category']   ;
+			$sqlQuery .= ", code   = '"  . $_POST['code'] . "'" ;
 			$sqlQuery .= ", Name   = '"  . $_POST['name'] . "'" ;
 			$sqlQuery .= ", NameAr = '"  . $_POST['nameAr'] . "'" ;
 			$sqlQuery .= ", NameCh = '"  . $_POST['nameCh'] . "'" ;

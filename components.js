@@ -1,4 +1,4 @@
-function viewLogin(){
+﻿function viewLogin(){
 	$('#view').html('');
 	viewAddCategory();
 }
@@ -177,8 +177,14 @@ function viewSubProperty(){
 
 function viewAddSubCategory(){
 	$( $('#navbar ul li')[2] ).addClass('active');
-	$('#view').append('<h1>Add item</h1> <div class="form-group"><label>Category:</label> '+
+	$('#view').append('<h1>Add item</h1> '+
+
+		'<div class="form-group"><label>Category:</label> '+
 		'<select  class="form-control" name="category"></select></div>'+
+
+		'<div class="form-group"><label>Code:</label> '+
+		'<input placeholder="*Required" class="form-control" type="text" name="code"></div>'+
+
 		' <div class="form-group"><label>English Name:</label> <input placeholder="Please Enter in English" class="form-control" type="text" name="name">  '+
 		' <label>Arabic Name:</label>  <input placeholder="برجاء الادخال بالعربي" class="form-control rtl" type="text" name="nameAr">  '+
 		' <label>Chinese Name:</label> <input placeholder="请用中文写" class="form-control" type="text" name="nameCh"> </div> '+
