@@ -18,6 +18,27 @@ var substringMatcher = function(strs, field) {
 	};
 };
 
+
+function ajaxLocale(q){
+	$.ajax({
+		url: "class_cms.php?method=getLocale&q=" + q
+	}).done(function(data) {
+		data = jQuery.parseJSON(data);
+
+		for (var i = 0; i < data.length; i++) {
+			$('#localetable').append('\
+			<tr>\
+				<td>'+data[i].key+'</td>\
+					<td>'+data[i].value+'</td>\
+					<td>'+data[i].valueAr+'</td>\
+				<td>'+data[i].valueCh+'</td>\
+			</tr>\
+			');
+		}
+
+	});
+}
+
 function ajaxCategory(){
 	$.ajax({
 		url: "class_cms.php?method=getCategory"
@@ -166,7 +187,9 @@ function viewSubProperty(){
 	$('#view').append('<div class="form-group properties" id="property'+len+'"><br>'+
 		'<label>Property name:</label>  <select  class="form-control" name="property['+len+']"></select> <br>'+
 		'<label>Property value:</label> <select  class="form-control" name="value['+len+']"></select> '+
-		'<a href="#" class="btn btn-danger" onclick="removeme(\'#property'+len+'\')">X</a></div>');
+		'<div style="width:100%;margin-top: 10px">'+
+		'<label class="checkbox-wrap" >Filter by <input class="thecheckbox" name="filterable['+len+']" type="checkbox" checked="checked"></label> '+
+		'<a href="#" class="btn btn-danger" style="float:right" onclick="removeme(\'#property'+len+'\')">X</a> </div></div>');
 	$( $('#property'+len+' [name^="property"]')[0] ).append('<option value="0">No property</option>');
 	$( $('#property'+len+' [name^="value"]')[0] ).append('<option value="0">No value</option>');
 
@@ -193,6 +216,53 @@ function viewAddSubCategory(){
 	$('[name=view]').prop('action', 'class_cms.php?method=setSubCategory');
 	ajaxCategory();
 
+}
+
+function viewAddLocale(){
+	$( $('#navbar ul li')[3] ).addClass('active');
+	
+		$('#view').append('\
+			<h1>Add Locale</h1> \
+			<br>\
+			<label>key</label>\
+			<div class="form-group">\
+				<input class="form-control"  placeholder="ValueInLowercaseWithNoSpaces" name="key"/>\
+			</div>\
+			<div class="form-group">\
+				<label>Value English</label>\
+				<input class="form-control" placeholder="Value in English" name="value" />\
+				<label>Value Arabic</label>\
+				<input class="form-control" placeholder="Value in Arabic" name="valueAr" />\
+				<label>Value Chinese</label>\
+				<input class="form-control" placeholder="Value in Chinese" name="valueCh" />\
+			</div>\
+			<div class="form-group">\
+				<input class="form-control btn btn-success" type="submit" value="Add locale (+)">\
+			</div>\
+			<br>\
+			\
+		');
+
+	$('#rightview').append('\
+			<div class="table-responsive">\
+				<table class="table table-striped">\
+					<thead>\
+						<tr>\
+							<th>Key</th>\
+							<th>Value English</th>\
+							<th>Value Arabic</th>\
+							<th>Value Chinese</th>\
+						</tr>\
+						\
+						<tbody id="localetable">\
+					    <tbody>\
+					</thead>\
+				</table>\
+			</div>\
+		');
+	ajaxLocale('');
+	$('#foot').remove();
+	$('[name=view]').prop('action', 'class_cms.php?method=setLocale');
 }
 
 function removeme(e){ $('html,body').animate({ scrollTop: $(e).offset().top}, 'fast'); $(e).remove(); }

@@ -32,6 +32,8 @@ $(document).ready(function(){
         }
       });
 
+    }else if(method == "setLocale"    ){
+      viewAddLocale();
     }
   }
 

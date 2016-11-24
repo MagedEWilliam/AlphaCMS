@@ -1,3 +1,10 @@
 body{
 	padding-top: 70px;
 }
+.checkbox-wrap{
+	width: 140px;
+}
+.thecheckbox{
+	position:none !important;
+	margin-left:none !important;
+}

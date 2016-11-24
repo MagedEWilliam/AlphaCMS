@@ -31,6 +31,7 @@
 						<li><a href="?method=setCategory">Add category</a></li>
 						<li><a href="?method=setProperty">Add properties</a></li>
 						<li><a href="?method=setSubCategory">Add items</a></li>
+						<li><a href="?method=setLocale">Add locale</a></li>
 					</ul>
 
 				</div><!--/.nav-collapse -->
@@ -40,6 +41,8 @@
 		<form action="class_cms.php" method="post" enctype="multipart/form-data" name="view"  autocomplete="off">
 			<div class="row">
 				<div id="view" class="col-sm-5">
+				</div>
+				<div id="rightview" class="col-sm-7">
 				</div>
 			</div>
 			<div class="row">
