@@ -11,6 +11,8 @@ if( isset($_GET['method']) ){
 	if ( $_GET['method'] == "setCategory"    ) { echo $classname->setCategory   (); }
 	if ( $_GET['method'] == "setSubCategory" ) { 
 		$sub = $classname->setSubCategory();
+		// $sub = 5;
+		// var_dump($_POST);
 		foreach ($_POST['property'] as $key => $value) {
 			if(isset($_POST['filterable'][$key])){
 				$_POST['filterable'][$key] = 1;
@@ -18,7 +20,14 @@ if( isset($_GET['method']) ){
 				$_POST['filterable'][$key] = 0;
 			}
 			$classname->setCatPropertyValue($sub, $value, $_POST['value'][$key], $_POST['filterable'][$key]);
+		 	// echo '$sub: ', $sub, '<br>';
+		 	// echo '$value: ', $value, '<br>';
+		 	// echo '$_POST[value][$key]: ', $_POST['value'][$key], '<br>';
+		 	// echo '$_POST[filterable][$key]: ', $_POST['filterable'][$key], '<br>';
+		 	// echo '<br>';
 		}
+
+
 		header('Location: index.php?method=setSubCategory');
 	}
 	if ( $_GET['method'] == "setProperty"    ) { echo $classname->setValue      (); }
@@ -103,6 +112,7 @@ class ClassName {
 			$sqlQuery .= ", Name   ";
 			$sqlQuery .= ", NameAr ";
 			$sqlQuery .= ", NameCh ";
+			$sqlQuery .= ", image ";
 			$sqlQuery .= ")" ;
 
 			$sqlQuery .= " VALUES ";
@@ -113,6 +123,7 @@ class ClassName {
 			$sqlQuery .= ", '"  . $_POST['name']   . "'" ;
 			$sqlQuery .= ", '"  . $_POST['nameAr'] . "'" ;
 			$sqlQuery .= ", '"  . $_POST['nameCh'] . "'" ;
+			$sqlQuery .= ", '"  . $_POST['url'] . "'" ;
 			$sqlQuery .= ")" ;
 
 			$result = $mysqli->query($sqlQuery);
@@ -128,16 +139,20 @@ class ClassName {
 
 			$sqlQuery  = "INSERT INTO catproperty ";
 			$sqlQuery .= "(" ;
-			$sqlQuery .= "  categoryID " ;
+			$sqlQuery .= "  catID " ;
+			$sqlQuery .= ", categoryID " ;
 			$sqlQuery .= ", propertyID " ;
 			$sqlQuery .= ", valueID "    ;
+			$sqlQuery .= ", filterbyme "    ;
 			$sqlQuery .= ")" ;
 
 			$sqlQuery .= " VALUES ";
 
 			$sqlQuery .= "(" ;
-			$sqlQuery .= "  "    . $sub        ;
+			$sqlQuery .= "  "    . $_POST['category'];
+			$sqlQuery .= ", "    . $sub        ;
 			$sqlQuery .= ", "    . $prop       ;
+			$sqlQuery .= ", "    . $val ;
 			$sqlQuery .= ", "    . $checkcheck ;
 			$sqlQuery .= ")" ;
 
@@ -157,6 +172,7 @@ class ClassName {
 				$sqlQuery .= "  Name " ;
 				$sqlQuery .= ", NameAr ";
 				$sqlQuery .= ", NameCh ";
+				$sqlQuery .= ", image ";
 				$sqlQuery .= ")" ;
 
 				$sqlQuery .= " VALUES ";
@@ -165,6 +181,7 @@ class ClassName {
 				$sqlQuery .= "  '" . $_POST['name']   ."'";
 				$sqlQuery .= ", '" . $_POST['nameAr'] ."'";
 				$sqlQuery .= ", '" . $_POST['nameCh'] ."'";
+				$sqlQuery .= ", '" . $_POST['url'] ."'";
 				$sqlQuery .= ")" ;
 
 				$result = $mysqli->query($sqlQuery);
@@ -215,7 +232,8 @@ class ClassName {
 			$sqlQuery  = "INSERT INTO catproperty ";
 
 			$sqlQuery .= "(" ;
-			$sqlQuery .= "  categoryID  ";
+			$sqlQuery .= "  catID  ";
+			$sqlQuery .= ", categoryID  ";
 			$sqlQuery .= ", propertyID  ";
 			$sqlQuery .= ", valueID     ";
 			$sqlQuery .= ", filterbyme  ";
@@ -225,6 +243,7 @@ class ClassName {
 
 			$sqlQuery .= "(" ;
 			$sqlQuery .= "  ". $_POST['category'] ;
+			$sqlQuery .= ", ". $_POST['category'] ;
 			$sqlQuery .= ", ". $id ;
 			$sqlQuery .= ", ". $id ;
 			$sqlQuery .= ", ". $_POST['filterable'] ;
