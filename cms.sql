@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2016 at 10:42 PM
+-- Generation Time: Dec 01, 2016 at 06:16 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -34,15 +34,16 @@ CREATE TABLE IF NOT EXISTS `category` (
   `image` text NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Name` (`Name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`ID`, `Name`, `NameAr`, `NameCh`, `image`) VALUES
-(1, 'Electrical Boxes & Brackets', 'صناديق كهربائية وأقواس', '电气盒和支架', 'http://www.mrelectricdecatur.com/pictures/el_icon_4.jpg'),
-(2, 'Conduit', 'أنبوب', '导管', 'http://www.ionnic.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/a/c/action_conduit.jpg');
+(1, 'Electrical Boxes & Brackets', 'صناديق كهربائية وبين قوسين', '电气盒和支架', 'http://www.homedepot.com/catalog/productImages/100/7b/7b044316-f5eb-4095-a512-ec1349004937_100.jpg'),
+(2, 'Conduit', 'قناة', '导管', 'http://www.homedepot.com/catalog/productImages/400_compressed/d7/d733ed0f-09df-4a4d-abc5-1106d3241357_400_compressed.jpg'),
+(3, 'Electrical Wire & Cable', 'الأسلاك الكهربائية والكابلات', '电线电缆', 'http://www.homedepot.com/catalog/productImages/400_compressed/0d/0d0bd00d-77e6-475c-aed0-eb0d1ea0c9e9_400_compressed.jpg');
 
 -- --------------------------------------------------------
 
@@ -51,6 +52,7 @@ INSERT INTO `category` (`ID`, `Name`, `NameAr`, `NameCh`, `image`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `catproperty` (
+  `catID` int(11) NOT NULL,
   `categoryID` int(11) NOT NULL,
   `propertyID` int(11) NOT NULL,
   `valueID` int(11) NOT NULL,
@@ -61,28 +63,36 @@ CREATE TABLE IF NOT EXISTS `catproperty` (
 -- Dumping data for table `catproperty`
 --
 
-INSERT INTO `catproperty` (`categoryID`, `propertyID`, `valueID`, `filterbyme`) VALUES
-(1, 2, 2, 0),
-(1, 1, 1, 0),
-(1, 3, 3, 0),
-(0, 3, 0, 0),
-(0, 2, 2, 0),
-(0, 1, 1, 0),
-(3, 3, 3, 0),
-(3, 2, 2, 0),
-(3, 1, 1, 0),
-(4, 3, 3, 0),
-(4, 2, 2, 0),
-(0, 4, 1, 0),
-(0, 5, 1, 0),
-(0, 4, 1, 0),
-(0, 5, 1, 0),
-(0, 4, 1, 0),
-(0, 5, 1, 0),
-(0, 4, 1, 0),
-(0, 5, 1, 0),
-(5, 4, 1, 0),
-(5, 5, 1, 0);
+INSERT INTO `catproperty` (`catID`, `categoryID`, `propertyID`, `valueID`, `filterbyme`) VALUES
+(2, 1, 1, 2, 1),
+(2, 2, 1, 4, 1),
+(3, 3, 1, 1, 1),
+(3, 4, 1, 3, 1),
+(3, 4, 2, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `content`
+--
+
+CREATE TABLE IF NOT EXISTS `content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `version` decimal(10,2) NOT NULL,
+  `pageid` int(11) NOT NULL,
+  `content` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  `contentAr` mediumtext CHARACTER SET utf8 NOT NULL,
+  `contentCh` mediumtext CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `content`
+--
+
+INSERT INTO `content` (`id`, `version`, `pageid`, `content`, `contentAr`, `contentCh`) VALUES
+(1, '1.00', 2, '<div class="sixteen wide column" id="sideNav"><p>this is cool</p></div>', '<div class="sixteen wide column" id="sideNav"><p>this is cool</p></div>', '<div class="sixteen wide column" id="sideNav"><p>this is cool</p></div>'),
+(2, '1.00', 3, '<div class="three wide column goodtimes" id="sideNav">\n								<p>Categories:</p>\n\n								<div id="mysidebarmenu" class="amazonmenu">\n									<ul id="sidebarmenu">\n										\n									</ul>\n									<div class="shadowmore"></div>\n									<div class="showmore">Show more</div>\n								</div>\n								<div class="filterArea" style="width: 100%;">\n									\n								</div>\n							</div>\n							<div class="thirteen wide column " id="product">\n								<div class="ui grid">\n\n									<div class="ten wide column" id="subcatmob">\n										<div class="mobilefil">\n											<a href="#" class="ui tiny button submenumob floatleft">≡Filter</a>\n											<select class="floatright shideme topspace" id="mobilesubmenu">\n												<option id="defuloptsub">Categories</option>\n											</select>\n										</div>\n\n										<div class="ui breadcrumb">\n											<a class="section" id="Home-crumb">\n												<i class="ui home icon"></i>\n											</a>\n											<span class="divider">/</span>\n											<div class="section">Products</div>\n\n										</div>\n									</div>\n									<div class="six wide column rtl searchresultcount" id="srchres">\n										<p class="rtl">search result</p>\n									</div>\n								</div>\n								<div class="ui divider"></div>\n								<div id="products" class="ui cards">\n\n								</div>\n								<br>\n								<div class="ui divider"></div>\n								<div id="productfooter">\n									<!-- <p>Products footer goes here</p> -->\n								</div>\n							</div>', '<div class="three wide column goodtimes" id="sideNav">\r\n								<p>Categories:</p>\r\n\r\n								<div id="mysidebarmenu" class="amazonmenu">\r\n									<ul id="sidebarmenu">\r\n										\r\n									</ul>\r\n									<div class="shadowmore"></div>\r\n									<div class="showmore">Show more</div>\r\n								</div>\r\n								<div class="filterArea" style="width: 100%;">\r\n									\r\n								</div>\r\n							</div>\r\n							<div class="thirteen wide column " id="product">\r\n								<div class="ui grid">\r\n\r\n									<div class="ten wide column" id="subcatmob">\r\n										<div class="mobilefil">\r\n											<a href="#" class="ui tiny button submenumob floatleft">≡Filter</a>\r\n											<select class="floatright shideme topspace" id="mobilesubmenu">\r\n												<option id="defuloptsub">Categories</option>\r\n											</select>\r\n										</div>\r\n\r\n										<div class="ui breadcrumb">\r\n											<a class="section" id="Home-crumb">\r\n												<i class="ui home icon"></i>\r\n											</a>\r\n											<span class="divider">/</span>\r\n											<div class="section">Products</div>\r\n\r\n										</div>\r\n									</div>\r\n									<div class="six wide column rtl searchresultcount" id="srchres">\r\n										<p class="rtl">search result</p>\r\n									</div>\r\n								</div>\r\n								<div class="ui divider"></div>\r\n								<div id="products" class="ui cards">\r\n\r\n								</div>\r\n								<br>\r\n								<div class="ui divider"></div>\r\n								<div id="productfooter">\r\n									<!-- <p>Products footer goes here</p> -->\r\n								</div>\r\n							</div>', '<div class="three wide column goodtimes" id="sideNav">\r\n								<p>Categories:</p>\r\n\r\n								<div id="mysidebarmenu" class="amazonmenu">\r\n									<ul id="sidebarmenu">\r\n										\r\n									</ul>\r\n									<div class="shadowmore"></div>\r\n									<div class="showmore">Show more</div>\r\n								</div>\r\n								<div class="filterArea" style="width: 100%;">\r\n									\r\n								</div>\r\n							</div>\r\n							<div class="thirteen wide column " id="product">\r\n								<div class="ui grid">\r\n\r\n									<div class="ten wide column" id="subcatmob">\r\n										<div class="mobilefil">\r\n											<a href="#" class="ui tiny button submenumob floatleft">≡Filter</a>\r\n											<select class="floatright shideme topspace" id="mobilesubmenu">\r\n												<option id="defuloptsub">Categories</option>\r\n											</select>\r\n										</div>\r\n\r\n										<div class="ui breadcrumb">\r\n											<a class="section" id="Home-crumb">\r\n												<i class="ui home icon"></i>\r\n											</a>\r\n											<span class="divider">/</span>\r\n											<div class="section">Products</div>\r\n\r\n										</div>\r\n									</div>\r\n									<div class="six wide column rtl searchresultcount" id="srchres">\r\n										<p class="rtl">search result</p>\r\n									</div>\r\n								</div>\r\n								<div class="ui divider"></div>\r\n								<div id="products" class="ui cards">\r\n\r\n								</div>\r\n								<br>\r\n								<div class="ui divider"></div>\r\n								<div id="productfooter">\r\n									<!-- <p>Products footer goes here</p> -->\r\n								</div>\r\n							</div>');
 
 -- --------------------------------------------------------
 
@@ -105,7 +115,33 @@ CREATE TABLE IF NOT EXISTS `locale` (
 --
 
 INSERT INTO `locale` (`key`, `value`, `valueAr`, `valueCh`, `deleted`) VALUES
-('login', 'Login', 'دخول', '注册', 0);
+('follow', 'Follow', 'تابع', '跟随', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pages`
+--
+
+CREATE TABLE IF NOT EXISTS `pages` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `OrderID` int(11) NOT NULL,
+  `Available` tinyint(1) NOT NULL,
+  `Name` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `NameAr` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `NameCh` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `url` varchar(150) NOT NULL,
+  `hascontent` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`ID`, `OrderID`, `Available`, `Name`, `NameAr`, `NameCh`, `url`, `hascontent`) VALUES
+(2, 0, 0, 'About us', 'عنا', 'in ch', 'aboutus', '1.00'),
+(3, 0, 0, 'Products', 'المنتجات', '產品', 'products', '1.00');
 
 -- --------------------------------------------------------
 
@@ -118,20 +154,18 @@ CREATE TABLE IF NOT EXISTS `property` (
   `Name` varchar(250) CHARACTER SET utf8 NOT NULL,
   `NameAr` varchar(250) CHARACTER SET utf8 NOT NULL,
   `NameCh` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `image` text NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Name` (`Name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `property`
 --
 
-INSERT INTO `property` (`ID`, `Name`, `NameAr`, `NameCh`) VALUES
-(1, 'Width', 'عرض', '宽度'),
-(2, 'Height', 'ارتفاع', '高度'),
-(3, 'Electrical Boxes & Brackets', 'صناديق كهربائية وأقواس', '电气盒和支架'),
-(4, 'Diameter', 'قطر', '直径'),
-(5, 'Sub-Category', 'قائمة فرعية', '子分类');
+INSERT INTO `property` (`ID`, `Name`, `NameAr`, `NameCh`, `image`) VALUES
+(1, 'Subcategory', 'فرعية', '子分类', 'http://www.homedepot.com/catalog/productImages/400_compressed/9e/9e030329-6a61-41c1-be96-be58828fe602_400_compressed.jpg'),
+(2, 'Length', 'طوله', '长', 'http://www.homedepot.com/catalog/productImages/400_compressed/8e/8e54fe5c-28ad-4c86-a4ad-45fc9ec00b80_400_compressed.jpg');
 
 -- --------------------------------------------------------
 
@@ -146,19 +180,20 @@ CREATE TABLE IF NOT EXISTS `subcategory` (
   `Name` varchar(250) CHARACTER SET utf8 NOT NULL,
   `NameAr` varchar(250) CHARACTER SET utf8 NOT NULL,
   `NameCh` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `image` text NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `subcategory`
 --
 
-INSERT INTO `subcategory` (`ID`, `catID`, `code`, `Name`, `NameAr`, `NameCh`) VALUES
-(1, 1, 'heyimaCode321', 'Hard Shell Ceiling Box with Adjustable Bar Hanger', ' صندوق بقوقعة صلبة للسقف قابلة للتعديل شريط شماعات', '硬壳天花板盒带可调式酒吧衣架'),
-(3, 1, 'heyimaCode123', 'Fan Fixture Box', 'مروحة تركيبات صندوق', '范夹具盒'),
-(4, 1, '1233', '32', '32', '23'),
-(5, 2, 'uniqueCode', 'EMT', 'EMT', 'EMT');
+INSERT INTO `subcategory` (`ID`, `catID`, `code`, `Name`, `NameAr`, `NameCh`, `image`) VALUES
+(1, 2, 'somecode', 'EMT', 'EMT', 'EMT', 'http://www.homedepot.com/catalog/productImages/400_compressed/98/980b4176-6b34-448d-9343-44e66448c05c_400_compressed.jpg'),
+(2, 2, 'UA9AEB-CTN', 'Elbow', 'Elbow', 'Elbow', 'http://www.homedepot.com/catalog/productImages/400_compressed/28/285b9026-f2bf-410c-8f40-17a5d6bb1e76_400_compressed.jpg'),
+(3, 3, 'B618RR', 'Hard Shell', 'Hard Shell', 'Hard Shell', 'http://www.homedepot.com/catalog/productImages/400_compressed/ee/ee4634fc-31d6-47cd-a76f-eca7e733693f_400_compressed.jpg'),
+(4, 3, '2304-42-00', 'AFC', 'AFC', 'AFC', 'http://www.homedepot.com/catalog/productImages/400_compressed/51/510d365f-6dc5-4af7-aaf5-1520c7daf8e8_400_compressed.jpg');
 
 -- --------------------------------------------------------
 
@@ -180,11 +215,11 @@ CREATE TABLE IF NOT EXISTS `value` (
 --
 
 INSERT INTO `value` (`ID`, `propertyID`, `value`, `valueAr`, `valueCh`) VALUES
-(1, 1, '2.5 cm', '2.5 cm', '2.5 cm'),
-(2, 2, '2.5 cm', '2.5 cm', '2.5 cm'),
-(3, 3, 'Ceiling Box', 'صندوق السقف', '天花板盒'),
-(4, 4, '1in', '1in', '1in'),
-(5, 5, 'Metallic', 'معدني', '金属的');
+(1, 1, 'Ceiling Box', 'صندوق السقف', '天花板盒'),
+(2, 1, 'Metallic', 'معدني', '金属'),
+(3, 1, 'Building Wire', 'بناء الأسلاك', '建筑电线'),
+(4, 1, 'Nonmetallic', 'غير معدني', '非金属'),
+(5, 2, '250', '250', '250');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
