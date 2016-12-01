@@ -7,9 +7,11 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="typeahead.css">
+	<link rel="stylesheet" type="text/css" href="summernote-master/dist/summernote.css">
 	<script type="text/javascript" src="jquery_min.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="typeahead.bundle.js"></script>
+	<script type="text/javascript" src="summernote-master/dist/summernote.min.js"></script>
 </head>
 <body style="overflow-y: scroll;">
 
@@ -28,10 +30,19 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse " aria-expanded="false">
 					<ul class="nav navbar-nav">
-						<li><a href="?method=setCategory">Add category</a></li>
-						<li><a href="?method=setProperty">Add properties</a></li>
-						<li><a href="?method=setSubCategory">Add items</a></li>
-						<li><a href="?method=setLocale">Add locale</a></li>
+						<li class="dropdown">
+					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add
+					        <span class="caret"></span></a>
+					        <ul class="dropdown-menu">
+								<li><a href="?method=setCategory">	  category   </a></li>
+								<li><a href="?method=setProperty">	  properties </a></li>
+								<li><a href="?method=setSubCategory"> items      </a></li>
+								<li><a href="?method=setLocale">	  locale     </a></li>
+								<li><a href="?method=setPage">		  Pages      </a></li>
+							</ul>
+					    </li>
+							
+						<li><a href="?method=setContent">Write content</a></li>
 					</ul>
 
 				</div><!--/.nav-collapse -->
@@ -47,7 +58,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-5" id="foot">
-					<input class="form-control" type="submit">
+					<input class="form-control btn-success" type="submit">
 				</div>
 			</div>
 		</form>

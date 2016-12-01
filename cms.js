@@ -32,8 +32,13 @@ $(document).ready(function(){
         }
       });
 
-    }else if(method == "setLocale"    ){
+    }else if(method == "setLocale"     ){
       viewAddLocale();
+    
+    }else if(method == "setContent"    ){
+      viewAddContent();
+    }else if(method == "setPage"       ){
+      viewAddPage();
     }
   }
 
@@ -54,12 +59,6 @@ $(document).ready(function(){
   }
 
   viewWhatNow(method);
-
-
-
-  // $('#category').select2({
-  //   placeholder: "Available Categories"
-  // });
 
 });
 

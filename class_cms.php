@@ -5,14 +5,13 @@ if( isset($_GET['method']) ){
 	if ( $_GET['method'] == "getCategory"    ) { echo $classname->getCategory   (); }
 	if ( $_GET['method'] == "getSubCategory" ) { echo $classname->getSubCategory(); }
 	if ( $_GET['method'] == "getProperty"    ) { echo $classname->getProperty   (); }
+	if ( $_GET['method'] == "getPage"        ) { echo $classname->getPage       ();  }
 	if ( $_GET['method'] == "getValue"       ) { echo $classname->getValueQ     ($_GET['ID']); }
 	if ( $_GET['method'] == "getLocale"      ) { echo $classname->getLocale     ($_GET['q']);  }
 
 	if ( $_GET['method'] == "setCategory"    ) { echo $classname->setCategory   (); }
 	if ( $_GET['method'] == "setSubCategory" ) { 
 		$sub = $classname->setSubCategory();
-		// $sub = 5;
-		// var_dump($_POST);
 		foreach ($_POST['property'] as $key => $value) {
 			if(isset($_POST['filterable'][$key])){
 				$_POST['filterable'][$key] = 1;
@@ -20,24 +19,64 @@ if( isset($_GET['method']) ){
 				$_POST['filterable'][$key] = 0;
 			}
 			$classname->setCatPropertyValue($sub, $value, $_POST['value'][$key], $_POST['filterable'][$key]);
-		 	// echo '$sub: ', $sub, '<br>';
-		 	// echo '$value: ', $value, '<br>';
-		 	// echo '$_POST[value][$key]: ', $_POST['value'][$key], '<br>';
-		 	// echo '$_POST[filterable][$key]: ', $_POST['filterable'][$key], '<br>';
-		 	// echo '<br>';
 		}
-
-
 		header('Location: index.php?method=setSubCategory');
 	}
 	if ( $_GET['method'] == "setProperty"    ) { echo $classname->setValue      (); }
 	if ( $_GET['method'] == "setLocale"      ) { echo $classname->setLocale     (); }
+	if ( $_GET['method'] == "setContent"     ) { echo $classname->setContent    (); }
+	if ( $_GET['method'] == "setPage"        ) { echo $classname->setPage       (); }
+
 }
 
 class ClassName {
 
+	static public function setContent    () {
+		if($_POST['page']!= ""){
+			$db  = Database::getInstance();
+			$mysqli = $db->getConnection();
+
+			$sqlQuery = "INSERT INTO content ";
+
+			$sqlQuery .= "(" ;
+			$sqlQuery .= " `version` " ;
+			$sqlQuery .= ",`pageid`  " ;
+			$sqlQuery .= ", content  " ;
+			$sqlQuery .= ", contentAr" ;
+			$sqlQuery .= ", contentCh" ;
+			$sqlQuery .= ")" ;
+			
+			$sqlQuery .= " VALUES ";
+
+			$sqlQuery .= "(" ;
+			$sqlQuery .= "  1.00,  ";
+			$sqlQuery .= "  ".  $_POST['page']      .",  ";
+			$sqlQuery .= " '".  $_POST['content']   ."', ";
+			$sqlQuery .= " '".  $_POST['contentAr'] ."', ";
+			$sqlQuery .= " '".  $_POST['contentCh'] ."'  ";
+			$sqlQuery .= ")" ;
+
+			$result = $mysqli->query($sqlQuery);
+			echo mysqli_error($mysqli);
+
+			self::hadcontent('1.00', $_POST['page']);
+		}
+		header('Location: index.php?method=setContent');
+	}
+
+	static public function hadcontent    ($version, $ID) {
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+
+		$sqlQuery = "UPDATE pages SET ";
+		$sqlQuery .= " hascontent = " . $version;
+		$sqlQuery .= " WHERE ID = " . $ID;
+		
+		$result = $mysqli->query($sqlQuery);
+		echo mysqli_error($mysqli);
+	}
+
 	static public function setLocale     () {
-		var_dump($_POST);
 		if($_POST['key']!= ""){
 			$db  = Database::getInstance();
 			$mysqli = $db->getConnection();
@@ -62,12 +101,40 @@ class ClassName {
 			$sqlQuery .= " 0";
 			$sqlQuery .= ")" ;
 
-			var_dump($sqlQuery);
-
 			$result = $mysqli->query($sqlQuery);
 			echo mysqli_error($mysqli);
 		}
 		header('Location: index.php?method=setLocale');
+	}
+	
+	static public function setPage    () {
+
+		if($_POST['url']!= ""){
+			$db  = Database::getInstance();
+			$mysqli = $db->getConnection();
+
+			$sqlQuery = "INSERT INTO pages ";
+
+			$sqlQuery .= "(" ;
+			$sqlQuery .= "  Name   ";
+			$sqlQuery .= ", NameAr ";
+			$sqlQuery .= ", NameCh ";
+			$sqlQuery .= ", url ";
+			$sqlQuery .= ")" ;
+
+			$sqlQuery .= " VALUES ";
+
+			$sqlQuery .= "(" ;
+			$sqlQuery .= "  '".  $_POST['name']   ."'";
+			$sqlQuery .= ", '".  $_POST['nameAr'] ."'";
+			$sqlQuery .= ", '".  $_POST['nameCh'] ."'";
+			$sqlQuery .= ", '".  $_POST['url'] ."'";
+			$sqlQuery .= ")" ;
+
+			$result = $mysqli->query($sqlQuery);
+			echo mysqli_error($mysqli);
+		}
+		header('Location: index.php?method=setPage');
 	}
 	
 	static public function setCategory    () {
@@ -353,6 +420,20 @@ class ClassName {
 		if($q != ""){
 			$sqlQuery .= " WHERE `key`='" . $q . "'";
 		}
+		if ($result = $mysqli->query($sqlQuery)) {
+			while ($row = $result->fetch_assoc()) {
+				array_push($res, $row);
+			}
+		}	
+		return json_encode($res);
+	}
+
+	static public function getPage         () {
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+		$res = [];
+		$sqlQuery = "SELECT * FROM pages";
+		
 		if ($result = $mysqli->query($sqlQuery)) {
 			while ($row = $result->fetch_assoc()) {
 				array_push($res, $row);
