@@ -120,6 +120,9 @@ class ClassName {
 			$sqlQuery .= ", NameAr ";
 			$sqlQuery .= ", NameCh ";
 			$sqlQuery .= ", url ";
+			$sqlQuery .= ", OrderID ";
+			$sqlQuery .= ", Available ";
+			$sqlQuery .= ", hascontent ";
 			$sqlQuery .= ")" ;
 
 			$sqlQuery .= " VALUES ";
@@ -129,6 +132,9 @@ class ClassName {
 			$sqlQuery .= ", '".  $_POST['nameAr'] ."'";
 			$sqlQuery .= ", '".  $_POST['nameCh'] ."'";
 			$sqlQuery .= ", '".  $_POST['url'] ."'";
+			$sqlQuery .= ", 0";
+			$sqlQuery .= ", 0";
+			$sqlQuery .= ", 0.00";
 			$sqlQuery .= ")" ;
 
 			$result = $mysqli->query($sqlQuery);
