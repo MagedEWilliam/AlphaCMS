@@ -8,3 +8,32 @@ body{
 	position:none !important;
 	margin-left:none !important;
 }
+#sortable{
+	width: 350px;
+	height: auto;
+	background-color: #fff;
+	padding: 15px 5px 15px 5px;
+}
+.ui-state-default{
+	background-color: #eee;
+	border: 1px solid #ccc;
+	list-style: none;
+	padding: 8px;
+	margin-bottom: 2px;
+	cursor: move;
+}
+
+.ui-state-default label{
+	float: right;
+}
+.ui-state-default span{
+	padding: 0 10px 0 0;
+}
+.ui-sortable-handle{
+	-ms-touch-action:none;
+	touch-action:none;
+}
+
+.ui-state-default:active{
+	box-shadow: 0px 5px 5px #aaa;
+}

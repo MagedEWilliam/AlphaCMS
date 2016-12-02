@@ -12,13 +12,13 @@ if( isset($_GET['method']) ){
 	if ( $_GET['method'] == "setCategory"    ) { echo $classname->setCategory   (); }
 	if ( $_GET['method'] == "setSubCategory" ) { 
 		$sub = $classname->setSubCategory();
+
+		$checkcheck = 0;
+		if( isset( $_POST['quickdetails'] ) ){ $checkcheck = 1; }
+		else{ $checkcheck = 0; }
+
 		foreach ($_POST['property'] as $key => $value) {
-			if(isset($_POST['filterable'][$key])){
-				$_POST['filterable'][$key] = 1;
-			}else{
-				$_POST['filterable'][$key] = 0;
-			}
-			$classname->setCatPropertyValue($sub, $value, $_POST['value'][$key], $_POST['filterable'][$key]);
+			$classname->setCatPropertyValue($sub, $value, $_POST['value'][$key], $checkcheck);
 		}
 		header('Location: index.php?method=setSubCategory');
 	}
@@ -26,6 +26,8 @@ if( isset($_GET['method']) ){
 	if ( $_GET['method'] == "setLocale"      ) { echo $classname->setLocale     (); }
 	if ( $_GET['method'] == "setContent"     ) { echo $classname->setContent    (); }
 	if ( $_GET['method'] == "setPage"        ) { echo $classname->setPage       (); }
+
+	if ( $_GET['method'] == "managePage"     ) { echo $classname->analyzePage   (); }
 
 }
 
@@ -133,7 +135,7 @@ class ClassName {
 			$sqlQuery .= ", '".  $_POST['nameCh'] ."'";
 			$sqlQuery .= ", '".  $_POST['url'] ."'";
 			$sqlQuery .= ", 0";
-			$sqlQuery .= ", 0";
+			$sqlQuery .= ", 1";
 			$sqlQuery .= ", 0.00";
 			$sqlQuery .= ")" ;
 
@@ -216,7 +218,7 @@ class ClassName {
 			$sqlQuery .= ", categoryID " ;
 			$sqlQuery .= ", propertyID " ;
 			$sqlQuery .= ", valueID "    ;
-			$sqlQuery .= ", filterbyme "    ;
+			$sqlQuery .= ", showquick " ;
 			$sqlQuery .= ")" ;
 
 			$sqlQuery .= " VALUES ";
@@ -246,6 +248,7 @@ class ClassName {
 				$sqlQuery .= ", NameAr ";
 				$sqlQuery .= ", NameCh ";
 				$sqlQuery .= ", image ";
+				$sqlQuery .= ", filterable ";
 				$sqlQuery .= ")" ;
 
 				$sqlQuery .= " VALUES ";
@@ -255,6 +258,11 @@ class ClassName {
 				$sqlQuery .= ", '" . $_POST['nameAr'] ."'";
 				$sqlQuery .= ", '" . $_POST['nameCh'] ."'";
 				$sqlQuery .= ", '" . $_POST['url'] ."'";
+				if( isset( $_POST['filterable'] ) ){
+					$sqlQuery .= ", 1";
+				}else{
+					$sqlQuery .= ", 0";
+				}
 				$sqlQuery .= ")" ;
 
 				$result = $mysqli->query($sqlQuery);
@@ -326,6 +334,31 @@ class ClassName {
 			echo mysqli_error($mysqli);
 		}
 		header('Location: index.php?method=setProperty');
+	}
+
+	static public function analyzePage     () {
+		$i = 0;
+		foreach ($_POST['pagenum'] as $key => $value) {
+			$ison = 0;
+			if( isset( $_POST['visibility'][$key] ) ){
+				$ison = 1;
+			}else{
+				$ison = 0;
+			}
+			self::managePage($i, $ison, $_POST['pagenum'][$key]);
+			$i++;
+		}
+		header('Location: index.php?method=managePage');
+	}
+
+	static public function managePage ($order, $avail, $id) {
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+
+		$sqlQuery = "UPDATE `pages` set OrderID = ". $order;
+		$sqlQuery .= ", Available = ". $avail;
+		$sqlQuery .= " WHERE ID = ". $id;
+		$result = $mysqli->query($sqlQuery);	
 	}
 
 	static public function getCategory    () {
@@ -438,7 +471,7 @@ class ClassName {
 		$db  = Database::getInstance();
 		$mysqli = $db->getConnection();
 		$res = [];
-		$sqlQuery = "SELECT * FROM pages";
+		$sqlQuery = "SELECT * FROM pages order by OrderID Asc";
 		
 		if ($result = $mysqli->query($sqlQuery)) {
 			while ($row = $result->fetch_assoc()) {

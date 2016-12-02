@@ -12,7 +12,6 @@ var substringMatcher = function(strs, field) {
 			if (substrRegex.test([strs[i][field]])) {
 				matches.push(str);
 			}
-
 		});
 		cb(matches);
 	};
@@ -24,7 +23,6 @@ function ajaxLocale(q){
 		url: "class_cms.php?method=getLocale&q=" + q
 	}).done(function(data) {
 		data = jQuery.parseJSON(data);
-
 		for (var i = 0; i < data.length; i++) {
 			$('#localetable').append('\
 			<tr>\
@@ -35,7 +33,6 @@ function ajaxLocale(q){
 			</tr>\
 			');
 		}
-
 	});
 }
 
@@ -97,7 +94,6 @@ function ajaxProperty(pro, val, v){
 			}else{
 				valu.push(data[i]);
 				val.append('<option value="'+data[i].ID+'">'+data[i].value+'</option>');
-
 			}
 		}
 
@@ -126,7 +122,8 @@ function ajaxValue(event){
 	var src=  $("#property" + event.data.name);
 	var fst = $(src).find('select')[0];
 	var sec = $(src).find('select')[1];
-	var ur = "class_cms.php?method=getValue&ID=" +$(fst).val() ;
+	var ur = "class_cms.php?method=getValue&ID=" +$(fst).val();
+
 	$.ajax({
 		url: ur
 	}).done(function(data) {
@@ -200,7 +197,7 @@ function viewAddProperty(){
 			<input type="hidden" name="nameCh-key"> \
 		</div>\
 		<br>\
-\
+		\
 		<div class="form-group">\
 			<label>English Value:</label> \
 			<input class="form-control typeahead" type="text" placeholder="Please Enter in English" name="value">\
@@ -214,11 +211,18 @@ function viewAddProperty(){
 			<input class="form-control typeahead" type="text" placeholder="请用中文写" name="valueCh">\
 			<input type="hidden" name="valueCh-key"> \
 		</div> \
-\
+		\
 		<div class="form-group"> \
 			<label>Image URL:</label> \
 			<textarea class="form-control" placeholder="Enter image URL" name="url" ></textarea>\
-		</div>');
+		</div>\
+		<div class="form-group"> \
+			<label class="checkbox-wrap" >\
+				Filter by it \
+				<input class="thecheckbox" name="filterable" type="checkbox" checked="checked">\
+			</label> \
+		</div>\
+		');
 	$('[name=property]').append('<option value="0">No property</option>');
 	$('#value').append('<option value="0">No value</option>');
 	ajaxProperty($('[name=property]'), $('#value'), true);
@@ -234,12 +238,17 @@ function viewSubProperty(){
 
 	var len = Number($('#hidden').val());
 
-	$('#view').append('<div class="form-group properties" id="property'+len+'"><br>'+
-		'<label>Property name:</label>  <select  class="form-control" name="property['+len+']"></select> <br>'+
-		'<label>Property value:</label> <select  class="form-control" name="value['+len+']"></select> '+
-		'<div style="width:100%;margin-top: 10px">'+
-		'<label class="checkbox-wrap" >Filter by <input class="thecheckbox" name="filterable['+len+']" type="checkbox" checked="checked"></label> '+
-		'<a href="#" class="btn btn-danger" style="float:right" onclick="removeme(\'#property'+len+'\')">X</a> </div></div>');
+	$('#view').append('\
+		<div class="form-group properties" id="property'+len+'">\
+			<br>\
+			<label>Property name:</label>\
+			<select  class="form-control" name="property['+len+']"></select> <br>\
+			<label>Property value:</label> <select  class="form-control" name="value['+len+']"></select> \
+			<div style="width:100%;margin-top: 10px">\
+				<a href="#" class="btn btn-danger" style="float:right" onclick="removeme(\'#property'+len+'\')">X</a> \
+			</div>\
+		</div>\
+		');
 	$( $('#property'+len+' [name^="property"]')[0] ).append('<option value="0">No property</option>');
 	$( $('#property'+len+' [name^="value"]')[0] ).append('<option value="0">No value</option>');
 
@@ -273,6 +282,12 @@ function viewAddSubCategory(){
 		<div class="form-group"> \
 		 	<label>Image URL:</label> \
 		 	<textarea class="form-control" placeholder="Enter image URL" name="url" ></textarea>\
+		 </div>\
+		 <div class="form-group"> \
+		 	<label class="" >\
+				Show up in the quick details \
+				<input class="quickdetails" name="quickdetails" type="checkbox">\
+			</label> \
 		 </div>\
 		 ');
 	$('#foot').prepend('<a href="#" id="plusprop">Add property (+)</a><br><br>');
@@ -344,7 +359,8 @@ function viewAddPage(){
 }
 
 function viewAddContent(){
-	$( $('#navbar .nav li')[6] ).addClass('active');
+	$( $('#navbar .nav li')[0] ).addClass('active');
+	$( $('#navbar ul .dropdown-menu li')[5] ).addClass('active');
 	
 		$('#view').append('\
 			<h1>Write Content</h1> \

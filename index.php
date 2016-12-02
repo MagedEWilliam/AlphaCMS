@@ -4,11 +4,13 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	<title>CMS</title>
+	
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="typeahead.css">
 	<link rel="stylesheet" type="text/css" href="summernote-master/dist/summernote.css">
 	<script type="text/javascript" src="jquery_min.js"></script>
+	<script type="text/javascript" src="sortabe/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="typeahead.bundle.js"></script>
 	<script type="text/javascript" src="summernote-master/dist/summernote.min.js"></script>
@@ -39,10 +41,19 @@
 								<li><a href="?method=setSubCategory"> items      </a></li>
 								<li><a href="?method=setLocale">	  locale     </a></li>
 								<li><a href="?method=setPage">		  Pages      </a></li>
+								<li><a href="?method=setContent">  Write content </a></li>
 							</ul>
 					    </li>
 							
-						<li><a href="?method=setContent">Write content</a></li>
+
+						<li class="dropdown">
+					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage
+					        <span class="caret"></span></a>
+					        <ul class="dropdown-menu">
+								<li><a href="?method=managePage">		  Pages      </a></li>
+							</ul>
+					    </li>
+
 					</ul>
 
 				</div><!--/.nav-collapse -->
@@ -66,7 +77,12 @@
 		<br>
 	</div>
 	<input type="hidden" id="hidden" value="0">
-	<script type="text/javascript" src="components.js"></script>
+	<script id="scripto" type="text/javascript" src="<?php 
+	$urlpar = $_GET['method'];
+	$isset = $urlpar[0] . $urlpar[1] . $urlpar[2];
+	if($isset == 'set'){ echo 'components.js'; }
+	else if($isset == 'man'){ echo 'components_manage.js'; } ?>"></script>
 	<script type="text/javascript" src="cms.js"       ></script>
+	<script type="text/javascript" src="setup.js"></script>
 </body>
 </html>
