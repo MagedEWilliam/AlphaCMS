@@ -14,6 +14,7 @@
 						</div>\
 						');
 	$('[name=view]').prop('action', 'class_cms.php?method=managePage');
+	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
 }
 
 function ajaxPages(){
@@ -21,7 +22,6 @@ function ajaxPages(){
 		url: "class_cms.php?method=getPage"
 	}).done(function(data) {
 		data = jQuery.parseJSON(data);
-		console.log(data);
 		for (var i = 0; i < data.length; i++)
 		{
 			var vie = '\

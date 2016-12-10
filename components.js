@@ -227,6 +227,7 @@ function viewAddProperty(){
 	$('#value').append('<option value="0">No value</option>');
 	ajaxProperty($('[name=property]'), $('#value'), true);
 	$('[name=view]').prop('action', 'class_cms.php?method=setProperty');
+	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
 }
 
 function scrolltoView(len){
@@ -293,7 +294,7 @@ function viewAddSubCategory(){
 	$('#foot').prepend('<a href="#" id="plusprop">Add property (+)</a><br><br>');
 	$('[name=view]').prop('action', 'class_cms.php?method=setSubCategory');
 	ajaxCategory();
-
+	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
 }
 
 function viewAddLocale(){
@@ -356,6 +357,7 @@ function viewAddPage(){
 						</div>\
 						');
 	$('[name=view]').prop('action', 'class_cms.php?method=setPage');
+	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
 }
 
 function viewAddContent(){
@@ -396,6 +398,7 @@ function viewAddContent(){
 							</div>');
 
 	$('#foot').remove();
+	
 	$('[name=view]').prop('action', 'class_cms.php?method=setContent');
 }
 

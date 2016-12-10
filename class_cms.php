@@ -53,9 +53,9 @@ class ClassName {
 			$sqlQuery .= "(" ;
 			$sqlQuery .= "  1.00,  ";
 			$sqlQuery .= "  ".  $_POST['page']      .",  ";
-			$sqlQuery .= " '".  $_POST['content']   ."', ";
-			$sqlQuery .= " '".  $_POST['contentAr'] ."', ";
-			$sqlQuery .= " '".  $_POST['contentCh'] ."'  ";
+			$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['content'])   ."', ";
+			$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['contentAr']) ."', ";
+			$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['contentCh']) ."'  ";
 			$sqlQuery .= ")" ;
 
 			$result = $mysqli->query($sqlQuery);

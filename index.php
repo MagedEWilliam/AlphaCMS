@@ -69,7 +69,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-5" id="foot">
-					<input class="form-control btn-success" type="submit">
+
 				</div>
 			</div>
 		</form>
