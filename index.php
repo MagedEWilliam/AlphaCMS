@@ -50,7 +50,15 @@
 					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage
 					        <span class="caret"></span></a>
 					        <ul class="dropdown-menu">
-								<li><a href="?method=managePage">		  Pages      </a></li>
+								<li><a href="?method=managePage">Pages</a></li>
+							</ul>
+					    </li>
+
+					    <li class="dropdown">
+					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
+					        <span class="caret"></span></a>
+					        <ul class="dropdown-menu">
+								<li><a href="?method=editSubCategory">Pages</a></li>
 							</ul>
 					    </li>
 
@@ -81,7 +89,8 @@
 	$urlpar = $_GET['method'];
 	$isset = $urlpar[0] . $urlpar[1] . $urlpar[2];
 	if($isset == 'set'){ echo 'components.js'; }
-	else if($isset == 'man'){ echo 'components_manage.js'; } ?>"></script>
+	elseif($isset == 'edit'){ echo 'components_edit.js'; }
+	elseif($isset == 'man'){ echo 'components_manage.js'; } ?>"></script>
 	<script type="text/javascript" src="cms.js"       ></script>
 	<script type="text/javascript" src="setup.js"></script>
 </body>

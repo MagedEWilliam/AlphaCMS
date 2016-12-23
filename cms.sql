@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2016 at 09:42 PM
+-- Generation Time: Dec 23, 2016 at 06:13 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -82,7 +82,18 @@ INSERT INTO `catproperty` (`catID`, `categoryID`, `propertyID`, `valueID`, `show
 (5, 6, 7, 16, 0),
 (5, 6, 7, 17, 0),
 (5, 6, 8, 18, 0),
-(5, 6, 9, 19, 0);
+(5, 6, 9, 19, 0),
+(5, 7, 1, 10, 0),
+(5, 7, 4, 11, 0),
+(5, 7, 5, 12, 0),
+(5, 7, 6, 13, 0),
+(5, 7, 6, 14, 0),
+(5, 7, 6, 15, 0),
+(5, 7, 7, 16, 0),
+(5, 7, 7, 17, 0),
+(5, 7, 8, 18, 0),
+(5, 7, 9, 19, 0),
+(5, 7, 9, 20, 0);
 
 -- --------------------------------------------------------
 
@@ -130,20 +141,26 @@ CREATE TABLE IF NOT EXISTS `locale` (
 --
 
 INSERT INTO `locale` (`key`, `value`, `valueAr`, `valueCh`, `deleted`) VALUES
+('added', 'Added', 'أضيفت', '添加', 0),
 ('all', 'All', 'كل', '凡', 0),
 ('alpha', 'Alpha', 'ألفا', 'Alpha', 0),
+('cart', 'Cart', 'سلة', '大车', 0),
 ('categories', 'Categories', 'أقسام', '分类', 0),
+('checkoutwithpaypal', 'Checkout with Paypal', 'Paypal ادفع باستخدام', '使用PayPal付款', 0),
 ('details', 'Details', 'تفاصيل', '细节', 0),
 ('filterBy', 'Filter by', 'مصنف ب', '过滤', 0),
 ('filters', 'Filters', 'فلتر', '筛选', 0),
 ('follow', 'Follow', 'تابع', '跟随', 0),
+('guest', 'Guest', 'ضيف', '客人', 0),
+('itemsDetails', 'Items details', 'تفاصيل الاصناف', '项目详细信息', 0),
 ('lightUpYourLife', 'Light up your life', 'نور حياتك', '照亮你的生活', 0),
 ('or', 'or', 'او', '或', 0),
 ('products', 'Products', 'المنتجات', '产品', 0),
 ('results', 'Results', 'نتائج', '结果', 0),
 ('showing', 'Showing', 'تظهر', '显示', 0),
 ('showMore', 'Show more', 'المزيد', '显示更多', 0),
-('toCart', 'To Cart', 'أضافة للعربة', '购物车', 0);
+('toCart', 'To Cart', 'أضافة للعربة', '购物车', 0),
+('total', 'Total', 'إجمالي', '总', 0);
 
 -- --------------------------------------------------------
 
@@ -218,21 +235,23 @@ CREATE TABLE IF NOT EXISTS `subcategory` (
   `NameAr` varchar(250) CHARACTER SET utf8 NOT NULL,
   `NameCh` varchar(250) CHARACTER SET utf8 NOT NULL,
   `image` text NOT NULL,
+  `price` float(10,4) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `subcategory`
 --
 
-INSERT INTO `subcategory` (`ID`, `catID`, `code`, `Name`, `NameAr`, `NameCh`, `image`) VALUES
-(1, 2, 'somecode', 'EMT', 'EMT', 'EMT', 'http://www.homedepot.com/catalog/productImages/400_compressed/98/980b4176-6b34-448d-9343-44e66448c05c_400_compressed.jpg'),
-(2, 2, 'UA9AEB-CTN', 'Elbow', 'Elbow', 'Elbow', 'http://www.homedepot.com/catalog/productImages/400_compressed/28/285b9026-f2bf-410c-8f40-17a5d6bb1e76_400_compressed.jpg'),
-(3, 3, 'B618RR', 'Hard Shell', 'Hard Shell', 'Hard Shell', 'http://www.homedepot.com/catalog/productImages/400_compressed/ee/ee4634fc-31d6-47cd-a76f-eca7e733693f_400_compressed.jpg'),
-(4, 3, '2304-42-00', 'AFC', 'AFC', 'AFC', 'http://www.homedepot.com/catalog/productImages/400_compressed/51/510d365f-6dc5-4af7-aaf5-1520c7daf8e8_400_compressed.jpg'),
-(5, 1, '521711234EW-25R', 'Square Box ', 'صندوق مربع', '方框', 'http://www.homedepot.com/catalog/productImages/400_compressed/0f/0f4e09df-9166-42f4-ac6a-af13624047fd_400_compressed.jpg'),
-(6, 5, 'T-L3B35A2T-5W', 'B35', 'ب35', 'B35', 'http://noorina.com/website-images/view/5497f0e01c4bf.jpg');
+INSERT INTO `subcategory` (`ID`, `catID`, `code`, `Name`, `NameAr`, `NameCh`, `image`, `price`) VALUES
+(1, 2, 'somecode', 'EMT', 'EMT', 'EMT', 'http://www.homedepot.com/catalog/productImages/400_compressed/98/980b4176-6b34-448d-9343-44e66448c05c_400_compressed.jpg', 140.0000),
+(2, 2, 'UA9AEB-CTN', 'Elbow', 'Elbow', 'Elbow', 'http://www.homedepot.com/catalog/productImages/400_compressed/28/285b9026-f2bf-410c-8f40-17a5d6bb1e76_400_compressed.jpg', 65.5000),
+(3, 3, 'B618RR', 'Hard Shell', 'Hard Shell', 'Hard Shell', 'http://www.homedepot.com/catalog/productImages/400_compressed/ee/ee4634fc-31d6-47cd-a76f-eca7e733693f_400_compressed.jpg', 99.9000),
+(4, 3, '2304-42-00', 'AFC', 'AFC', 'AFC', 'http://www.homedepot.com/catalog/productImages/400_compressed/51/510d365f-6dc5-4af7-aaf5-1520c7daf8e8_400_compressed.jpg', 56.0000),
+(5, 1, '521711234EW-25R', 'Square Box ', 'صندوق مربع', '方框', 'http://www.homedepot.com/catalog/productImages/400_compressed/0f/0f4e09df-9166-42f4-ac6a-af13624047fd_400_compressed.jpg', 95.0000),
+(6, 5, 'T-L3B35A2T-5W', 'B35', 'ب35', 'B35', 'http://www.homedepot.com/catalog/productImages/400_compressed/d6/d64815ce-fa44-4d6e-b2e3-2ebeab87f055_400_compressed.jpg', 10.5000),
+(7, 5, 'TCB35', 'Tip Candle B35', 'شمعة حرف ب35', '提示蜡烛B35', 'http://www.homedepot.com/catalog/productImages/1000/32/32a2096f-8f3f-48c5-ab82-e7c805940ee2_1000.jpg', 35.5000);
 
 -- --------------------------------------------------------
 

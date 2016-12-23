@@ -281,12 +281,21 @@ function viewAddSubCategory(){
 		</div> \
 			 \
 		<div class="form-group"> \
+		 	<label>Price:</label> \
+		 	<input placeholder="*Required" class="form-control" type="number" name="price" value="000.00">\
+		 </div>\
+		 \
+		 <div class="form-group"> \
 		 	<label>Image URL:</label> \
 		 	<textarea class="form-control" placeholder="Enter image URL" name="url" ></textarea>\
 		 </div>\
 		 <div class="form-group"> \
 		 	<label class="" >\
 				Show up in the quick details \
+				<input class="quickdetails" name="quickdetails" type="checkbox">\
+			</label> \
+			<label class="" style="float: right;">\
+				Feature as a hot item \
 				<input class="quickdetails" name="quickdetails" type="checkbox">\
 			</label> \
 		 </div>\
