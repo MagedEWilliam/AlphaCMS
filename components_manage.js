@@ -14,7 +14,8 @@
 						</div>\
 						');
 	$('[name=view]').prop('action', 'class_cms.php?method=managePage');
-	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
+	ajaxPages();
+	$('#foot').append('<br><input class="ui green button" type="submit">');
 }
 
 function ajaxPages(){
@@ -28,7 +29,8 @@ function ajaxPages(){
 					<li class="ui-state-default">\
 						<input type="hidden" name="pagenum['+i+']" value="'+data[i].ID+'">\
 						<span class="glyphicon glyphicon-th"></span><b>'+data[i].Name+'</b>\
-						<label>Visibility\
+						<div class="ui checkbox floatright">\
+						<label>Visibility</label>\
 							<input type="checkbox" name="visibility['+i+']"';
 
 			if(data[i].Available == '0'){
@@ -37,11 +39,12 @@ function ajaxPages(){
 				vie += 'checked/>';
 			}
 			
-			$( '#sortable' ).append(vie + '</label></li>');
+			$( '#sortable' ).append(vie + '</div></li>');
+
 		}
 		$( "#sortable" ).sortable();
+		$('.checkbox').checkbox();
 	});
 }
 
 viewManagePage();
-ajaxPages();

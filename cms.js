@@ -12,7 +12,7 @@ $(document).ready(function(){
 
   function viewWhatNow(method){
     if(method == undefined || method == "" ){
-      viewLogin();
+      // viewLogin();
     }else if(method == "setCategory"       ){
       viewAddCategory();
     }else if(method == "setSubCategory"    ){

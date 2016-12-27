@@ -22,7 +22,9 @@ body{
 	margin-bottom: 2px;
 	cursor: move;
 }
-
+.floatright{
+	float: right;
+}
 .ui-state-default label{
 	float: right;
 }

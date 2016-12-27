@@ -189,6 +189,7 @@ class ClassName {
 			$sqlQuery .= ", NameCh ";
 			$sqlQuery .= ", image ";
 			$sqlQuery .= ", price ";
+			$sqlQuery .= ", qun ";
 			$sqlQuery .= ")" ;
 
 			$sqlQuery .= " VALUES ";
@@ -201,6 +202,7 @@ class ClassName {
 			$sqlQuery .= ", '"  . $_POST['nameCh'] . "'" ;
 			$sqlQuery .= ", '"  . $_POST['url'] . "'" ;
 			$sqlQuery .= ", '"  . $_POST['price'] . "'" ;
+			$sqlQuery .= ", '"  . $_POST['qun'] . "'" ;
 			$sqlQuery .= ")" ;
 
 			$result = $mysqli->query($sqlQuery);

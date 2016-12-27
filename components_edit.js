@@ -34,10 +34,13 @@ function viewEdit(){
 			<textarea class="form-control" placeholder="Enter image URL" name="url" ></textarea>\
 		</div>\
 		<div class="form-group"> \
-			<label class="checkbox-wrap" >\
-				Filter by it \
+			<div class="ui checkbox">\
+				<label >\
+					Filter by it \
+				</label> \
 				<input class="thecheckbox" name="filterable" type="checkbox" checked="checked">\
-			</label> \
+			</div>\
 		</div>\
 	');
+	$('.checkbox').checkbox();
 }

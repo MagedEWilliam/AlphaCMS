@@ -153,19 +153,19 @@ function viewAddCategory(){
 	$('title').html('Add category');
 	$('#view').append('\
 		<h1>Add category:</h1> \
-		<div class="form-group">\
+		<div class="field">\
 			'+gemeinput('English Name', 'name', 'Please Enter in English', 'typeahead')+'\
 			<input type="hidden" name="name-key">\
 			'+gemeinput('Arabic Name', 'nameAr', 'برجاء الادخال بالعربي', 'typeahead')+'\
 			<input type="hidden" name="nameAr-key">\
 			'+gemeinput('Chinese Name', 'nameCh', '请用中文写', 'typeahead')+'\
 			<input type="hidden" name="nameCh-key"> </div> \
-			<div class="form-group">\
+			<div class="field">\
 				<label>Image URL:</label> \
 				<textarea class="form-control" name="url" placeholder="Enter image URL"></textarea>\
 		</div>');
 	$('#foot input').remove();
-	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
+	$('#foot').append('<br><input class="ui green button" type="submit">');
 
 	ajaxCategory();
 	$('[name=view]').prop('action', 'class_cms.php?method=setCategory');
@@ -183,7 +183,7 @@ function viewAddProperty(){
 	$( $('#navbar ul .dropdown-menu li')[1] ).addClass('active');
 	$('title').html('Property');
 	$('#view').append('<h1>Property</h1> \
-		<div class="form-group">\
+		<div class="field">\
 			<label>Property Name in English:</label> \
 			<input class="form-control typeahead" type="text" placeholder="Please Enter in English" name="name">\
 			<input type="hidden" name="name-key">  \
@@ -198,7 +198,7 @@ function viewAddProperty(){
 		</div>\
 		<br>\
 		\
-		<div class="form-group">\
+		<div class="field">\
 			<label>English Value:</label> \
 			<input class="form-control typeahead" type="text" placeholder="Please Enter in English" name="value">\
 			<input type="hidden" name="value-key"> \
@@ -212,22 +212,26 @@ function viewAddProperty(){
 			<input type="hidden" name="valueCh-key"> \
 		</div> \
 		\
-		<div class="form-group"> \
+		<div class="field"> \
 			<label>Image URL:</label> \
 			<textarea class="form-control" placeholder="Enter image URL" name="url" ></textarea>\
 		</div>\
-		<div class="form-group"> \
+		<div class="field"> \
+		<div class="ui checkbox">\
 			<label class="checkbox-wrap" >\
 				Filter by it \
-				<input class="thecheckbox" name="filterable" type="checkbox" checked="checked">\
 			</label> \
+				<input class="thecheckbox" name="filterable" type="checkbox" checked="checked">\
+		</div>\
 		</div>\
 		');
+
 	$('[name=property]').append('<option value="0">No property</option>');
 	$('#value').append('<option value="0">No value</option>');
 	ajaxProperty($('[name=property]'), $('#value'), true);
 	$('[name=view]').prop('action', 'class_cms.php?method=setProperty');
-	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
+	$('#foot').append('<br><input class="ui green button" type="submit">');
+	$('.checkbox').checkbox();
 }
 
 function scrolltoView(len){
@@ -240,13 +244,13 @@ function viewSubProperty(){
 	var len = Number($('#hidden').val());
 
 	$('#view').append('\
-		<div class="form-group properties" id="property'+len+'">\
+		<div class="field properties" id="property'+len+'">\
 			<br>\
 			<label>Property name:</label>\
 			<select  class="form-control" name="property['+len+']"></select> <br>\
 			<label>Property value:</label> <select  class="form-control" name="value['+len+']"></select> \
 			<div style="width:100%;margin-top: 10px">\
-				<a href="#" class="btn btn-danger" style="float:right" onclick="removeme(\'#property'+len+'\')">X</a> \
+				<a href="#" class="ui red button" style="float:right" onclick="removeme(\'#property'+len+'\')">X</a> \
 			</div>\
 		</div>\
 		');
@@ -264,46 +268,62 @@ function viewAddSubCategory(){
 	$('title').html('Add item');
 	$('#view').append('\
 		<h1>Add item</h1> \
-		<div class="form-group"> \
+		<div class="field"> \
 			<label>Category:</label> \
-			<select  class="form-control" name="category"></select>\
+			<select class="ui dropdown" name="category"></select>\
 		</div>\
 		\
-		<div class="form-group">\
+		<div class="field">\
 			<label>Code:</label> \
 			<input placeholder="*Required" class="form-control" type="text" name="code">\
 		</div>\
 		\
-		 <div class="form-group">\
+		 <div class="field">\
 		 	'+gemeinput('English Name', 'name'  , 'Value in English', '')+'\
 			'+gemeinput('Arabic Name' , 'nameAr', 'برجاء الادخال بالعربي' , 'rtl')+'\
 			'+gemeinput('Chinese Name', 'nameCh', '请用中文写', '')+'\
 		</div> \
 			 \
-		<div class="form-group"> \
+		<div class="field"> \
 		 	<label>Price:</label> \
 		 	<input placeholder="*Required" class="form-control" type="number" name="price" value="000.00">\
 		 </div>\
 		 \
-		 <div class="form-group"> \
+		<div class="field"> \
+		 	<label>Price:</label> \
+		 	<input placeholder="*Required" class="form-control" type="number" name="price" value="000.00">\
+		 </div>\
+		 \
+		<div class="field"> \
+		 	<label>Quantity:</label> \
+		 	<input placeholder="*Required" class="form-control" type="number" name="qun" value="0">\
+		 </div>\
+		 \
+		 <div class="field"> \
 		 	<label>Image URL:</label> \
 		 	<textarea class="form-control" placeholder="Enter image URL" name="url" ></textarea>\
 		 </div>\
-		 <div class="form-group"> \
+		 <div class="field"> \
+		 <div class="ui checkbox">\
 		 	<label class="" >\
 				Show up in the quick details \
-				<input class="quickdetails" name="quickdetails" type="checkbox">\
 			</label> \
+				<input class="quickdetails" name="quickdetails" type="checkbox">\
+			</div>\
+			<div class="ui checkbox">\
 			<label class="" style="float: right;">\
 				Feature as a hot item \
-				<input class="quickdetails" name="quickdetails" type="checkbox">\
 			</label> \
+				<input class="quickdetails" name="quickdetails" type="checkbox">\
+			</div>\
 		 </div>\
 		 ');
 	$('#foot').prepend('<a href="#" id="plusprop">Add property (+)</a><br><br>');
 	$('[name=view]').prop('action', 'class_cms.php?method=setSubCategory');
 	ajaxCategory();
-	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
+	$('#foot').append('<br><input class="ui green button" type="submit">');
+	$('.checkbox').checkbox();
+	$('.dropdown').dropdown();
 }
 
 function viewAddLocale(){
@@ -314,24 +334,24 @@ function viewAddLocale(){
 			<h1>Add Locale</h1> \
 			<br>\
 			<label>key</label>\
-			<div class="form-group">\
+			<div class="field">\
 				<input class="form-control"  placeholder="ValueInLowercaseWithNoSpaces" name="key"/>\
 			</div>\
-			<div class="form-group">\
+			<div class="field">\
 			'+gemeinput('Value English', 'value'  , 'Value in English', '')+'\
 			'+gemeinput('Value Arabic' , 'valueAr', 'Value in Arabic' , '')+'\
 			'+gemeinput('Value Chinese', 'valueCh', 'Value in Chinese', '')+'\
 			</div>\
-			<div class="form-group">\
-				<input class="form-control btn btn-success" type="submit" value="Add locale (+)">\
+			<div class="field">\
+				<input class="ui green button" type="submit" value="Add locale (+)">\
 			</div>\
 			<br>\
 			\
 		');
 
 	$('#rightview').append('\
-			<div class="table-responsive">\
-				<table class="table table-striped">\
+			\
+				<table class="ui table celled striped">\
 					<thead>\
 						<tr>\
 							<th>Key</th>\
@@ -344,7 +364,7 @@ function viewAddLocale(){
 					    <tbody>\
 					</thead>\
 				</table>\
-			</div>\
+			\
 		');
 	ajaxLocale('');
 	$('#foot').remove();
@@ -356,17 +376,17 @@ function viewAddPage(){
 	$( $('#navbar ul .dropdown-menu li')[4] ).addClass('active');
 	$('title').html('Add Page');
 	$('#view').append(' <h1>Add page</h1>\
-						<div class="form-group">\
+						<div class="field">\
 						'+gemeinput('Unique File Name', 'url'  , 'Unique File Name', ''	)+'\
 						</div>\
-						<div class="form-group">\
+						<div class="field">\
 							'+gemeinput('Page Name in English', 'name'  , 'Page name in English', ''	)+'\
 							'+gemeinput('Page Name in Arabic' , 'nameAr', 'برجاء الادخال بالعربي' , ''	)+'\
 							'+gemeinput('Page Name in Chinese', 'nameCh', '请用中文写', ''	)+'\
 						</div>\
 						');
 	$('[name=view]').prop('action', 'class_cms.php?method=setPage');
-	$('#foot').append('<br><input class="form-control btn-success" type="submit">');
+	$('#foot').append('<br><input class="ui green button" type="submit">');
 }
 
 function viewAddContent(){
@@ -377,9 +397,9 @@ function viewAddContent(){
 			<h1>Write Content</h1> \
 			<br>\
 			<label for="page">Choose a page:</label> \
-			<select  class="form-control" name="page"></select>\
+			<select  class="ui fluid dropdown form-control" name="page"></select>\
 			<br>\
-			<div class="form-group">\
+			<div class="field">\
 				<label for="content">Content in English</label>\
 				<textarea id="summernote" name="content"></textarea>\
 				\
@@ -392,9 +412,45 @@ function viewAddContent(){
 			\
 		');
 	ajaxPages();
-	$('#summernote')  .summernote({ placeholder: 'Type content in English', height: 250});
-	$('#summernoteAr').summernote({ placeholder: 'Type content in Arabic' , height: 250});
-	$('#summernoteCh').summernote({ placeholder: 'Type content in Chinese', height: 250});
+
+$('.dropdown').dropdown();
+
+tinymce.init({selector: '#summernote',
+    plugins: [
+      'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+      'searchreplace wordcount visualblocks visualchars code fullscreen',
+      'insertdatetime media nonbreaking save table contextmenu directionality',
+      'emoticons template paste textcolor colorpicker textpattern imagetools'
+    ],
+    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    toolbar2: 'print preview media | forecolor backcolor emoticons',
+    image_advtab: true
+});
+
+tinymce.init({selector: '#summernoteAr',
+    plugins: [
+      'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+      'searchreplace wordcount visualblocks visualchars code fullscreen',
+      'insertdatetime media nonbreaking save table contextmenu directionality',
+      'emoticons template paste textcolor colorpicker textpattern imagetools'
+    ],
+    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    toolbar2: 'print preview media | forecolor backcolor emoticons',
+    image_advtab: true
+});
+
+tinymce.init({selector: '#summernoteCh',
+    plugins: [
+      'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+      'searchreplace wordcount visualblocks visualchars code fullscreen',
+      'insertdatetime media nonbreaking save table contextmenu directionality',
+      'emoticons template paste textcolor colorpicker textpattern imagetools'
+    ],
+    toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    toolbar2: 'print preview media | forecolor backcolor emoticons',
+    image_advtab: true
+});
+
 
 	$('#view').removeClass('col-sm-5');
 	$('#view').addClass('col-sm-10');
@@ -402,8 +458,8 @@ function viewAddContent(){
 	$('#rightview').removeClass('col-sm-7');
 	$('#rightview').addClass('col-sm-2');
 
-	$('#rightview').append('<div class="form-group">\
-								<input class="form-control btn btn-success" type="submit" value="Save">\
+	$('#rightview').append('<div class="field">\
+								<input class="ui green button" type="submit" value="Save">\
 							</div>');
 
 	$('#foot').remove();
