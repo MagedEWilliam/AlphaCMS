@@ -289,11 +289,20 @@ function viewAddSubCategory(){
 		 	<input placeholder="*Required" class="form-control" type="number" name="price" value="000.00">\
 		 </div>\
 		 \
-		<div class="field"> \
-		 	<label>Price:</label> \
-		 	<input placeholder="*Required" class="form-control" type="number" name="price" value="000.00">\
-		 </div>\
-		 \
+		<div class="fields"> \
+			<div class="eight field"> \
+			 	<label>Discount in %:</label> \
+			 	<input placeholder="*Required" class="form-control" type="number" name="discount" value="000.00">\
+			</div>\
+			 \
+			<div class="ui checkbox">\
+			 	<label class="" >\
+					On sale? \
+				</label> \
+					<input class="quickdetails" name="onsale" type="checkbox">\
+			</div>\
+		</div>\
+		\
 		<div class="field"> \
 		 	<label>Quantity:</label> \
 		 	<input placeholder="*Required" class="form-control" type="number" name="qun" value="0">\
@@ -324,6 +333,8 @@ function viewAddSubCategory(){
 	$('#foot').append('<br><input class="ui green button" type="submit">');
 	$('.checkbox').checkbox();
 	$('.dropdown').dropdown();
+	cardPreview();
+	$(window).on('click keyup change', function(){cardPreview();});
 }
 
 function viewAddLocale(){

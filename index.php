@@ -101,6 +101,7 @@
 	<script src="components.js"        ></script>
 	<script src="components_manage.js" ></script>
 	<script src="components_edit.js"   ></script>
+	<script src="cardPreview.js"   ></script>
 	<script src="cms.js"               ></script>
 	<script src="setup.js"             ></script>
 </body>
