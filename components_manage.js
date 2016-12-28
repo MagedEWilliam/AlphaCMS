@@ -13,7 +13,7 @@
 						\
 						</div>\
 						');
-	$('[name=view]').prop('action', 'class_cms.php?method=managePage');
+	$('[name=view]').prop('action', 'class_cms.php?method=manageNavOrder');
 	ajaxPages();
 	$('#foot').append('<br><input class="ui green button" type="submit">');
 }
@@ -28,7 +28,7 @@ function ajaxPages(){
 			var vie = '\
 					<li class="ui-state-default">\
 						<input type="hidden" name="pagenum['+i+']" value="'+data[i].ID+'">\
-						<span class="glyphicon glyphicon-th"></span><b>'+data[i].Name+'</b>\
+						<i class="ui icon resize vertical"></i><b>'+data[i].Name+'</b>\
 						<div class="ui checkbox floatright">\
 						<label>Visibility</label>\
 							<input type="checkbox" name="visibility['+i+']"';
@@ -47,4 +47,3 @@ function ajaxPages(){
 	});
 }
 
-viewManagePage();

@@ -9,7 +9,7 @@
 	<!-- <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="typeahead.css">
-<!-- 	<link rel="stylesheet" type="text/css" href="summernote-master/dist/summernote.css"> -->
+	<!-- 	<link rel="stylesheet" type="text/css" href="summernote-master/dist/summernote.css"> -->
 	<script type="text/javascript" src="jquery_min.js"></script>
 	<script type="text/javascript" src="sortabe/jquery-ui.min.js"></script>
 	<!-- <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script> -->
@@ -33,7 +33,9 @@
 						<a class="item" href="?method=setCategory">	  category        </a>
 						<a class="item" href="?method=setProperty">	  properties      </a>
 						<a class="item" href="?method=setSubCategory"> items           </a>
+						<div class="ui divider"></div>
 						<a class="item" href="?method=setLocale">	  locale          </a>
+						<div class="ui divider"></div>
 						<a class="item" href="?method=setPage">		  Pages           </a>
 						<a class="item" href="?method=setContent">  Write content      </a>
 					</div>
@@ -45,7 +47,16 @@
 					<span class="text">Manage</span>
 					<i class="dropdown icon"></i>
 					<div class="menu">
-						<a class="item" href="?method=managePage">Pages</a>
+						<a class="item" href="?method=manageNavOrder">Nav Order</a>
+						<div class="ui dropdown link item">
+							<span class="text">Pages</span>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<a class="item" href="?method=managePageHome">Home</a>
+								<a class="item" href="?method=managePageFooter">Footer</a>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
@@ -63,9 +74,9 @@
 			</div>
 
 		</nav>
-<br>
-<br>
-<br>
+		<br>
+		<br>
+		<br>
 		<form action="class_cms.php" method="post" enctype="multipart/form-data" name="view" class="ui form grid" autocomplete="off">
 			<div class="sixteen wide column ui grid">
 				<div id="view" class="seven wide column">
@@ -84,18 +95,13 @@
 
 	</div>
 	<input type="hidden" id="hidden" value="0">
-	<script id="scripto" type="text/javascript" src="<?php 
-	if(isset($_GET['method'])){
-		$urlpar = $_GET['method'];
-		$isset = $urlpar[0] . $urlpar[1] . $urlpar[2];
-		if($isset == 'set'){ echo 'components.js'; }
-		elseif($isset == 'edit'){ echo 'components_edit.js'; }
-		elseif($isset == 'man'){ echo 'components_manage.js'; }
-	} ?>"></script>
 	<script>
 		$('.dropdown').dropdown();
 	</script>
-	<script type="text/javascript" src="cms.js"       ></script>
-	<script type="text/javascript" src="setup.js"></script>
+	<script src="components.js"        ></script>
+	<script src="components_manage.js" ></script>
+	<script src="components_edit.js"   ></script>
+	<script src="cms.js"               ></script>
+	<script src="setup.js"             ></script>
 </body>
 </html>

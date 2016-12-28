@@ -11,35 +11,17 @@ $(document).ready(function(){
   var status = getUrlParameter("status");
 
   function viewWhatNow(method){
-    if(method == undefined || method == "" ){
-      // viewLogin();
-    }else if(method == "setCategory"       ){
-      viewAddCategory();
-    }else if(method == "setSubCategory"    ){
-      viewAddSubCategory();
-      $('#plusprop').click(function(){
-        viewSubProperty();
-      });
-    }else if(method == "setProperty"       ){
-      viewAddProperty();
 
-      $('[name=property]').change(function(e){
-        var value = $('[name=property] option:selected').text();
-        if(value == "No property"){
-          $('[name=name]').val( "" );
-        }else{
-          $('[name=name]').val( value );
-        }
-      });
-
-    }else if(method == "setLocale"     ){
-      viewAddLocale();
-    
-    }else if(method == "setContent"    ){
-      viewAddContent();
-    }else if(method == "setPage"       ){
-      viewAddPage();
+    switch (method){
+      case 'setCategory'     : viewAddCategory();  break;
+      case 'setSubCategory'  : setSubCategoryfn(); break;
+      case 'setProperty'     : setPropertyfn();    break;
+      case 'setLocale'       : viewAddLocale();    break;
+      case 'setContent'      : viewAddContent();   break;
+      case 'setPage'         : viewAddPage();      break;
+      case 'manageNavOrder'  : viewManagePage();   break;
     }
+
   }
 
   function msg(status){ if(status == "success"){}else if(status == "error"){} }
@@ -61,3 +43,23 @@ $(document).ready(function(){
   viewWhatNow(method);
 
 });
+
+function setSubCategoryfn(){
+  viewAddSubCategory();
+  $('#plusprop').click(function(){
+    viewSubProperty();
+  });
+}
+
+function setPropertyfn(){
+  viewAddProperty();
+
+  $('[name=property]').change(function(e){
+    var value = $('[name=property] option:selected').text();
+    if(value == "No property"){
+      $('[name=name]').val( "" );
+    }else{
+      $('[name=name]').val( value );
+    }
+  });
+}
