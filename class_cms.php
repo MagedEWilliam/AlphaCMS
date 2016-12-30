@@ -2,36 +2,73 @@
 require('class_database.php');
 if( isset($_GET['method']) ){
 	$classname = new ClassName;
-	if ( $_GET['method'] == "getCategory"    ) { echo $classname->getCategory   (); }
-	if ( $_GET['method'] == "getSubCategory" ) { echo $classname->getSubCategory(); }
-	if ( $_GET['method'] == "getProperty"    ) { echo $classname->getProperty   (); }
-	if ( $_GET['method'] == "getPage"        ) { echo $classname->getPage       ();  }
-	if ( $_GET['method'] == "getValue"       ) { echo $classname->getValueQ     ($_GET['ID']); }
-	if ( $_GET['method'] == "getLocale"      ) { echo $classname->getLocale     ($_GET['q']);  }
 
-	if ( $_GET['method'] == "setCategory"    ) { echo $classname->setCategory   (); }
-	if ( $_GET['method'] == "setSubCategory" ) { 
-		$sub = $classname->setSubCategory();
+	switch ($_GET['method']) {
+		case "getCategory"      :       echo $classname->getCategory   ();             break;
+		case "getSubCategory"   :       echo $classname->getSubCategory();             break;
+		case "getProperty"      :       echo $classname->getProperty   ();             break;
+		case "getPage"          :       echo $classname->getPage       ();             break;
+		case "getPart"          :       echo $classname->getPart       ();            break;
+		case "getPagePart"      :       echo $classname->getPagePart   ();            break;
+		case "getValue"         :       echo $classname->getValueQ     ($_GET['ID']);  break;
+		case "getLocale"        :       echo $classname->getLocale     ($_GET['q']) ;  break;
 
-		$checkcheck = 0;
-		if( isset( $_POST['quickdetails'] ) ){ $checkcheck = 1; }
-		else{ $checkcheck = 0; }
-
-		foreach ($_POST['property'] as $key => $value) {
-			$classname->setCatPropertyValue($sub, $value, $_POST['value'][$key], $checkcheck);
-		}
-		header('Location: index.php?method=setSubCategory');
+		case "setCategory"      :       echo $classname->setCategory   ();             break;
+		case "setSubCategory"   :       echo setSubCategory            ();             break;
+		case "setProperty"      :       echo $classname->setValue      ();             break;
+		case "setLocale"        :       echo $classname->setLocale     ();             break;
+		case "setContent"       :       echo $classname->setContent    ();             break;
+		case "setPage"          :       echo $classname->setPage       ();             break;
+		case "setPart"          :       echo $classname->setPart       ();             break;
+		case "manageNavOrder"   :       echo $classname->analyzePage   ('manageNavOrder');             break;
+		case "managePages"      :       echo $classname->delPageComposition($_POST['page']); $classname->analyzePage   ('managePages');break;
+		
+		case "uptPart"          :       echo $classname->uptPart       ();             break;
 	}
-	if ( $_GET['method'] == "setProperty"    ) { echo $classname->setValue      (); }
-	if ( $_GET['method'] == "setLocale"      ) { echo $classname->setLocale     (); }
-	if ( $_GET['method'] == "setContent"     ) { echo $classname->setContent    (); }
-	if ( $_GET['method'] == "setPage"        ) { echo $classname->setPage       (); }
 
-	if ( $_GET['method'] == "managePage"     ) { echo $classname->analyzePage   (); }
+}
+// print_r($_POST)
+function setSubCategory(){
+	$sub = $classname->setSubCategory();
 
+	$checkcheck = 0;
+	if( isset( $_POST['quickdetails'] ) ){ $checkcheck = 1; }
+	else{ $checkcheck = 0; }
+
+	foreach ($_POST['property'] as $key => $value) {
+		$classname->setCatPropertyValue($sub, $value, $_POST['value'][$key], $checkcheck);
+	}
+	header('Location: index.php?method=setSubCategory&status=success');
 }
 
 class ClassName {
+
+	static public function setPart      () {
+		if($_POST['page']!= ""){
+			$db  = Database::getInstance();
+			$mysqli = $db->getConnection();
+
+			$sqlQuery = "INSERT INTO parts ";
+
+			$sqlQuery .= "(" ;
+			$sqlQuery .= " `page` " ;
+			$sqlQuery .= ",`partid`  " ;
+			$sqlQuery .= ", `content`  " ;
+			$sqlQuery .= ")" ;
+			
+			$sqlQuery .= " VALUES ";
+
+			$sqlQuery .= "(" ;
+			$sqlQuery .= " ".  $_POST['page']      .",  ";
+			$sqlQuery .= " '".  $_POST['partID']   ."',  ";
+			$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['content'])   ."' ";
+			$sqlQuery .= ")" ;
+
+			$result = $mysqli->query($sqlQuery);
+			echo mysqli_error($mysqli);
+		}
+		header('Location: index.php?method=setPart&status=success');
+	}
 
 	static public function setContent    () {
 		if($_POST['page']!= ""){
@@ -63,7 +100,7 @@ class ClassName {
 
 			self::hadcontent('1.00', $_POST['page']);
 		}
-		header('Location: index.php?method=setContent');
+		header('Location: index.php?method=setContent&status=success');
 	}
 
 	static public function hadcontent    ($version, $ID) {
@@ -106,7 +143,7 @@ class ClassName {
 			$result = $mysqli->query($sqlQuery);
 			echo mysqli_error($mysqli);
 		}
-		header('Location: index.php?method=setLocale');
+		header('Location: index.php?method=setLocale&status=success');
 	}
 	
 	static public function setPage    () {
@@ -136,13 +173,13 @@ class ClassName {
 			$sqlQuery .= ", '".  $_POST['url'] ."'";
 			$sqlQuery .= ", 0";
 			$sqlQuery .= ", 1";
-			$sqlQuery .= ", 0.00";
+			$sqlQuery .= ", 1.00";
 			$sqlQuery .= ")" ;
 
 			$result = $mysqli->query($sqlQuery);
 			echo mysqli_error($mysqli);
 		}
-		header('Location: index.php?method=setPage');
+		header('Location: index.php?method=setPage&status=success');
 	}
 	
 	static public function setCategory    () {
@@ -171,7 +208,7 @@ class ClassName {
 			$result = $mysqli->query($sqlQuery);
 			echo mysqli_error($mysqli);
 		}
-		header('Location: index.php?method=setCategory');
+		header('Location: index.php?method=setCategory&status=success');
 	}
 
 	static public function setSubCategory () {
@@ -305,7 +342,7 @@ class ClassName {
 			$result = $mysqli->query($sqlQuery);
 			echo mysqli_error($mysqli);
 		}
-		header('Location: index.php?method=setProperty');
+		header('Location: index.php?method=setProperty&status=success');
 	}
 
 	static public function setCatProperty () {
@@ -337,10 +374,10 @@ class ClassName {
 			$result = $mysqli->query($sqlQuery);
 			echo mysqli_error($mysqli);
 		}
-		header('Location: index.php?method=setProperty');
+		header('Location: index.php?method=setProperty&status=success');
 	}
 
-	static public function analyzePage     () {
+	static public function analyzePage     ($fun) {
 		$i = 0;
 		foreach ($_POST['pagenum'] as $key => $value) {
 			$ison = 0;
@@ -349,13 +386,14 @@ class ClassName {
 			}else{
 				$ison = 0;
 			}
-			self::managePage($i, $ison, $_POST['pagenum'][$key]);
+			self::{$fun}($i, $ison, $_POST['pagenum'][$key]);
 			$i++;
 		}
-		header('Location: index.php?method=managePage');
+		header('Location: index.php?method='.$fun.'&status=success');
 	}
 
-	static public function managePage ($order, $avail, $id) {
+
+	static public function manageNavOrder ($order, $avail, $id) {
 		$db  = Database::getInstance();
 		$mysqli = $db->getConnection();
 
@@ -363,6 +401,24 @@ class ClassName {
 		$sqlQuery .= ", Available = ". $avail;
 		$sqlQuery .= " WHERE ID = ". $id;
 		$result = $mysqli->query($sqlQuery);	
+	}
+
+	static public function managePages ($order, $avail, $id) {
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+
+		$sqlQuery = "Insert into `composepage` (pageid, orderid, partid) VALUES(".$_POST['page'].", ".$order.", ".$id.") ";
+		$result = $mysqli->query($sqlQuery);	
+		echo mysqli_error($mysqli);
+	}
+
+	static public function delPageComposition ($id) {
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+
+		$sqlQuery = "Delete FROM `composepage` WHERE pageid = ".$id." ";
+		$result = $mysqli->query($sqlQuery);	
+		echo mysqli_error($mysqli);
 	}
 
 	static public function getCategory    () {
@@ -483,6 +539,56 @@ class ClassName {
 			}
 		}	
 		return json_encode($res);
+	}
+
+	static public function getPagePart     () {
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+		$res = [];
+		
+		$sqlQuery = "SELECT * FROM `composepage`";
+		$sqlQuery .= " INNER JOIN `parts` on composepage.partid = parts.ID";
+		$sqlQuery .= " Where `composepage`.`pageid` = " . $_GET['page'];
+		
+		if ($result = $mysqli->query($sqlQuery)) {
+			while ($row = $result->fetch_assoc()) {
+				array_push($res, $row);
+			}
+		}
+		
+		return json_encode($res);
+	}
+	static public function getPart         () {
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+		$res = [];
+		if($_GET['page'] == 'all'){
+			$sqlQuery = "SELECT * FROM parts";
+		}else{
+			$sqlQuery = "SELECT * FROM parts Where page = " . $_GET['page'];
+		}
+		
+		if ($result = $mysqli->query($sqlQuery)) {
+			while ($row = $result->fetch_assoc()) {
+				$rowscape = array("ID"=>$row['ID'],
+				 "page"=>$row['page'],
+				 "partid"=>$row['partid'],
+				 "content"=>addslashes($row['content']) );
+				array_push($res, $rowscape );
+			}
+		}	
+		return json_encode($res);
+	}
+
+	static public function uptPart         () {
+
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+
+		$sqlQuery = "Update parts set content = '".addslashes($_POST['content'])."' Where ID = " . $_POST['part'];
+
+		$result = $mysqli->query($sqlQuery);
+		header('Location: index.php?method=manageParts&status=success');
 	}
 
 }

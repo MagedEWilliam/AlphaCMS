@@ -37,7 +37,8 @@
 						<a class="item" href="?method=setLocale">	  locale          </a>
 						<div class="ui divider"></div>
 						<a class="item" href="?method=setPage">		  Pages           </a>
-						<a class="item" href="?method=setContent">  Write content      </a>
+						<a class="item" href="?method=setPart">		  Part           </a>
+						<!-- <a class="item" href="?method=setContent">  Write content      </a> -->
 					</div>
 				</div>
 
@@ -48,15 +49,7 @@
 					<i class="dropdown icon"></i>
 					<div class="menu">
 						<a class="item" href="?method=manageNavOrder">Nav Order</a>
-						<div class="ui dropdown link item">
-							<span class="text">Pages</span>
-							<i class="dropdown icon"></i>
-							<div class="menu">
-								<a class="item" href="?method=managePageHome">Home</a>
-								<a class="item" href="?method=managePageFooter">Footer</a>
-							</div>
-						</div>
-
+						<a class="item" href="?method=managePages">Pages</a>
 					</div>
 				</div>
 
@@ -66,7 +59,7 @@
 					<span class="text">Edit</span>
 					<i class="dropdown icon"></i>
 					<div class="menu">
-						<a class="item" href="?method=editSubCategory">Pages</a>
+						<a class="item" href="?method=manageParts">Parts</a>
 					</div>
 				</div>
 
@@ -78,6 +71,9 @@
 		<br>
 		<br>
 		<form action="class_cms.php" method="post" enctype="multipart/form-data" name="view" class="ui form grid" autocomplete="off">
+			
+			<div id="message" style="width: 100%" class="ui hidden message"></div>
+			
 			<div class="sixteen wide column ui grid">
 				<div id="view" class="seven wide column">
 				</div>
@@ -101,8 +97,8 @@
 	<script src="components.js"        ></script>
 	<script src="components_manage.js" ></script>
 	<script src="components_edit.js"   ></script>
-	<script src="cardPreview.js"   ></script>
-	<script src="cms.js"               ></script>
+	<script src="cardPreview.js"       ></script>
 	<script src="setup.js"             ></script>
+	<script src="cms.js"               ></script>
 </body>
 </html>

@@ -12,6 +12,8 @@ $(document).ready(function(){
 
   function viewWhatNow(method){
 
+    msg(status);
+
     switch (method){
       case 'setCategory'     : viewAddCategory();  break;
       case 'setSubCategory'  : setSubCategoryfn(); break;
@@ -19,12 +21,27 @@ $(document).ready(function(){
       case 'setLocale'       : viewAddLocale();    break;
       case 'setContent'      : viewAddContent();   break;
       case 'setPage'         : viewAddPage();      break;
-      case 'manageNavOrder'  : viewManagePage();   break;
+      case 'setPart'         : viewNewPart();      break;
+      case 'manageParts'     : getParts();         break;
+      case 'manageNavOrder'  : viewManageNavPage();   break;
+      case 'managePages'     : viewManagePage();   break;
     }
 
   }
 
-  function msg(status){ if(status == "success"){}else if(status == "error"){} }
+  function msg(status){ 
+    if(status == "success"){
+      $('#message').removeClass('hidden');
+      $('#message').css('display','block');
+      $('#message').addClass('success');
+      $('#message').text('Done');
+    }else if(status == "error"){
+      $('#message').removeClass('hidden');
+      $('#message').css('display','block');
+      $('#message').addClass('error');
+      $('#message').text('Done');
+    }
+  }
 
   function autoopen(source, text){
     var len = source.length-1;

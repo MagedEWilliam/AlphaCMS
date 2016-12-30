@@ -8,11 +8,17 @@ body{
 	position:none !important;
 	margin-left:none !important;
 }
-#sortable{
+.connectedSortable li{
+	z-index: 999;
+}
+.connectedSortable{
 	width: 350px;
 	height: auto;
 	background-color: #fff;
 	padding: 15px 5px 15px 5px;
+	min-height:350px;
+	max-height: 500px;
+	border: 2px dashed #eee;
 }
 .ui-state-default{
 	background-color: #eee;
