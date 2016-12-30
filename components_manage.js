@@ -18,6 +18,28 @@
 	$('#foot').append('<br><input class="ui green button" type="submit">');
 }
 
+function viewManageProductsOrder(){
+	$('#navbar .dropdown:eq(1)').addClass('active')
+	$('#navbar .dropdown:eq(1) .dropdown-menu li:eq(0)').addClass('active');
+
+	$('title').html('Manage Nav');
+	$('#view').append(' <h1>Manage Pages</h1>\
+						<div class="form-group">\
+							<ul id="sortable">\
+							\
+							</ul>\
+						</div>\
+						<div class="form-group">\
+						\
+						</div>\
+						');
+	$('[name=view]').prop('action', 'class_cms.php?method=manageProductsOrder');
+	ajaxCards();
+	$('#rightview').append('<br><input class="ui green button" type="submit">');
+	$('#rightview').css('position', 'fixed');
+}
+
+
 function viewManagePage(){
 	$('title').html('Manage Pages');
 	var view = '\
@@ -140,6 +162,7 @@ function getParts(){
 	$('.dropdown').dropdown({placeholder:'Nothing Selected'});
 	$('[name=page]').change(ajaxPart);
 	$('[name=part]').change(function(){ 
+		tinymce.get("summernote").setContent('');
 		tinymce.get("summernote").execCommand('mceInsertContent', false, heyLookImGlopal_State_content[ $('[name=part]').val() ]);
 	});
 	ajaxPage(false);
@@ -156,6 +179,26 @@ function ajaxPart(){
 			$('[name=part]').append('<option value="'+data[i].ID+'">'+data[i].partid+'</option>');
 			heyLookImGlopal_State_content[ data[i].ID ] = data[i].content.replace(/\\/g,'"').replace(/""/g, '"');
 		}
+	});
+}
+
+function ajaxCards(){
+	$.getJSON("class_cms.php?method=getSubCategory", function(data){
+		for (var i = 0; i < data.length; i++)
+		{
+			var vie = '\
+					<li class="ui-state-default cardy">\
+						<input type="hidden" name="pagenum['+i+']" value="'+data[i].ID+'">\
+						<i class="ui icon resize vertical"></i><b>'+data[i].Name+'</b>\
+						<p> : </p>\
+						<p>'+data[i].code+'</p>\
+						<img src="'+data[i].image+'" />\
+					</li>';
+			
+			$( '#sortable' ).append(vie);
+		}
+		$( "#sortable" ).sortable();
+		$('.checkbox').checkbox();
 	});
 }
 

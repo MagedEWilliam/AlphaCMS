@@ -288,13 +288,13 @@ function viewAddSubCategory(){
 		\
 		<div class="field"> \
 		<label>Price:</label> \
-		<input placeholder="*Required" class="form-control" type="number" name="price" value="000.00">\
+		<input placeholder="*Required" class="form-control" type="text" name="price" value="000.00">\
 		</div>\
 		\
 		<div class="fields"> \
 		<div class="eight field"> \
 		<label>Discount in %:</label> \
-		<input placeholder="*Required" class="form-control" type="number" name="discount" value="000.00">\
+		<input placeholder="*Required" class="form-control" type="text" name="discount" value="000">\
 		</div>\
 		\
 		<div class="ui checkbox">\

@@ -15,16 +15,17 @@ $(document).ready(function(){
     msg(status);
 
     switch (method){
-      case 'setCategory'     : viewAddCategory();  break;
-      case 'setSubCategory'  : setSubCategoryfn(); break;
-      case 'setProperty'     : setPropertyfn();    break;
-      case 'setLocale'       : viewAddLocale();    break;
-      case 'setContent'      : viewAddContent();   break;
-      case 'setPage'         : viewAddPage();      break;
-      case 'setPart'         : viewNewPart();      break;
-      case 'manageParts'     : getParts();         break;
-      case 'manageNavOrder'  : viewManageNavPage();   break;
-      case 'managePages'     : viewManagePage();   break;
+      case 'setCategory'        : viewAddCategory();         break;
+      case 'setSubCategory'     : setSubCategoryfn();        break;
+      case 'setProperty'        : setPropertyfn();           break;
+      case 'setLocale'          : viewAddLocale();           break;
+      case 'setContent'         : viewAddContent();          break;
+      case 'setPage'            : viewAddPage();             break;
+      case 'setPart'            : viewNewPart();             break;
+      case 'manageParts'        : getParts();                break;
+      case 'manageNavOrder'     : viewManageNavPage();       break;
+      case 'manageProductsOrder': viewManageProductsOrder(); break;
+      case 'managePages'        : viewManagePage();          break;
     }
 
   }

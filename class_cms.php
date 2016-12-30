@@ -4,31 +4,34 @@ if( isset($_GET['method']) ){
 	$classname = new ClassName;
 
 	switch ($_GET['method']) {
-		case "getCategory"      :       echo $classname->getCategory   ();             break;
-		case "getSubCategory"   :       echo $classname->getSubCategory();             break;
-		case "getProperty"      :       echo $classname->getProperty   ();             break;
-		case "getPage"          :       echo $classname->getPage       ();             break;
-		case "getPart"          :       echo $classname->getPart       ();            break;
-		case "getPagePart"      :       echo $classname->getPagePart   ();            break;
-		case "getValue"         :       echo $classname->getValueQ     ($_GET['ID']);  break;
-		case "getLocale"        :       echo $classname->getLocale     ($_GET['q']) ;  break;
+		case "getCategory"     : echo $classname->getCategory   ();             break;
+		case "getSubCategory"  : echo $classname->getSubCategory();             break;
+		case "getProperty"     : echo $classname->getProperty   ();             break;
+		case "getPage"         : echo $classname->getPage       ();             break;
+		case "getPart"         : echo $classname->getPart       ();             break;
+		case "getPagePart"     : echo $classname->getPagePart   ();             break;
+		case "getValue"        : echo $classname->getValueQ     ($_GET['ID']);  break;
+		case "getLocale"       : echo $classname->getLocale     ($_GET['q']) ;  break;
 
-		case "setCategory"      :       echo $classname->setCategory   ();             break;
-		case "setSubCategory"   :       echo setSubCategory            ();             break;
-		case "setProperty"      :       echo $classname->setValue      ();             break;
-		case "setLocale"        :       echo $classname->setLocale     ();             break;
-		case "setContent"       :       echo $classname->setContent    ();             break;
-		case "setPage"          :       echo $classname->setPage       ();             break;
-		case "setPart"          :       echo $classname->setPart       ();             break;
-		case "manageNavOrder"   :       echo $classname->analyzePage   ('manageNavOrder');             break;
-		case "managePages"      :       echo $classname->delPageComposition($_POST['page']); $classname->analyzePage   ('managePages');break;
+		case "setCategory"     : echo $classname->setCategory   ();             break;
+		case "setSubCategory"  : echo setSubCategory            ();             break;
+		case "setProperty"     : echo $classname->setValue      ();             break;
+		case "setLocale"       : echo $classname->setLocale     ();             break;
+		case "setContent"      : echo $classname->setContent    ();             break;
+		case "setPage"         : echo $classname->setPage       ();             break;
+		case "setPart"         : echo $classname->setPart       ();             break;
+
+		case "manageNavOrder"  : echo $classname->analyzePage    ('manageNavOrder'); break;
+		case "manageProductsOrder" : echo $classname->analyzePage('manageProductsOrder');break;
+		case "managePages"     : echo $classname->delPageComposition($_POST['page']); $classname->analyzePage   ('managePages');break;
 		
-		case "uptPart"          :       echo $classname->uptPart       ();             break;
+		case "uptPart"         : echo $classname->uptPart       ();             break;
 	}
 
 }
 // print_r($_POST)
 function setSubCategory(){
+	$classname = new ClassName;
 	$sub = $classname->setSubCategory();
 
 	$checkcheck = 0;
@@ -227,6 +230,8 @@ class ClassName {
 			$sqlQuery .= ", image ";
 			$sqlQuery .= ", price ";
 			$sqlQuery .= ", qun ";
+			$sqlQuery .= ", onsale ";
+			$sqlQuery .= ", discount ";
 			$sqlQuery .= ")" ;
 
 			$sqlQuery .= " VALUES ";
@@ -240,6 +245,14 @@ class ClassName {
 			$sqlQuery .= ", '"  . $_POST['url'] . "'" ;
 			$sqlQuery .= ", '"  . $_POST['price'] . "'" ;
 			$sqlQuery .= ", '"  . $_POST['qun'] . "'" ;
+
+			if( isset($_POST['onsale']) ){
+				$sqlQuery .= ", 1" ;
+			}else{
+				$sqlQuery .= ", 0" ;
+			}
+
+			$sqlQuery .= ", '"  . $_POST['discount'] . "'" ;
 			$sqlQuery .= ")" ;
 
 			$result = $mysqli->query($sqlQuery);
@@ -403,6 +416,15 @@ class ClassName {
 		$result = $mysqli->query($sqlQuery);	
 	}
 
+	static public function manageProductsOrder ($order, $avail, $id) {
+		$db  = Database::getInstance();
+		$mysqli = $db->getConnection();
+
+		$sqlQuery = "UPDATE `subcategory` set ordering = ". $order;
+		$sqlQuery .= " WHERE ID = ". $id;
+		$result = $mysqli->query($sqlQuery);	
+	}
+
 	static public function managePages ($order, $avail, $id) {
 		$db  = Database::getInstance();
 		$mysqli = $db->getConnection();
@@ -439,7 +461,7 @@ class ClassName {
 		$db  = Database::getInstance();
 		$mysqli = $db->getConnection();
 		$res = [];
-		$sqlQuery = "SELECT * FROM subcategory ";
+		$sqlQuery = "SELECT * FROM subcategory ORDER BY ordering";
 		if ($result = $mysqli->query($sqlQuery)) {
 			while ($row = $result->fetch_assoc()) {
 				array_push($res, $row);
@@ -571,9 +593,9 @@ class ClassName {
 		if ($result = $mysqli->query($sqlQuery)) {
 			while ($row = $result->fetch_assoc()) {
 				$rowscape = array("ID"=>$row['ID'],
-				 "page"=>$row['page'],
-				 "partid"=>$row['partid'],
-				 "content"=>addslashes($row['content']) );
+					"page"=>$row['page'],
+					"partid"=>$row['partid'],
+					"content"=>addslashes($row['content']) );
 				array_push($res, $rowscape );
 			}
 		}	

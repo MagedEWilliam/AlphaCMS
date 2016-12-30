@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2016 at 02:34 AM
+-- Generation Time: Dec 30, 2016 at 11:52 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -93,7 +93,11 @@ INSERT INTO `catproperty` (`catID`, `categoryID`, `propertyID`, `valueID`, `show
 (5, 7, 7, 17, 0),
 (5, 7, 8, 18, 0),
 (5, 7, 9, 19, 0),
-(5, 7, 9, 20, 0);
+(5, 7, 9, 20, 0),
+(3, 8, 1, 3, 0),
+(3, 8, 3, 6, 0),
+(3, 9, 1, 3, 0),
+(3, 9, 2, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -298,20 +302,22 @@ CREATE TABLE IF NOT EXISTS `subcategory` (
   `ordering` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `subcategory`
 --
 
 INSERT INTO `subcategory` (`ID`, `catID`, `code`, `Name`, `NameAr`, `NameCh`, `image`, `price`, `qun`, `onsale`, `discount`, `ordering`) VALUES
-(1, 2, 'somecode', 'EMT', 'EMT', 'EMT', 'http://www.homedepot.com/catalog/productImages/400_compressed/98/980b4176-6b34-448d-9343-44e66448c05c_400_compressed.jpg', 140.0000, 0, 0, 0.0000, 0),
-(2, 2, 'UA9AEB-CTN', 'Elbow', 'Elbow', 'Elbow', 'http://www.homedepot.com/catalog/productImages/400_compressed/28/285b9026-f2bf-410c-8f40-17a5d6bb1e76_400_compressed.jpg', 65.5000, 0, 0, 0.0000, 0),
-(3, 3, 'B618RR', 'Hard Shell', 'Hard Shell', 'Hard Shell', 'http://www.homedepot.com/catalog/productImages/400_compressed/ee/ee4634fc-31d6-47cd-a76f-eca7e733693f_400_compressed.jpg', 99.9000, 0, 0, 0.0000, 0),
-(4, 3, '2304-42-00', 'AFC', 'AFC', 'AFC', 'http://www.homedepot.com/catalog/productImages/400_compressed/51/510d365f-6dc5-4af7-aaf5-1520c7daf8e8_400_compressed.jpg', 56.0000, 0, 0, 0.0000, 0),
-(5, 1, '521711234EW-25R', 'Square Box ', 'صندوق مربع', '方框', 'http://www.homedepot.com/catalog/productImages/400_compressed/0f/0f4e09df-9166-42f4-ac6a-af13624047fd_400_compressed.jpg', 95.0000, 0, 0, 0.0000, 0),
-(6, 5, 'T-L3B35A2T-5W', 'B35', 'ب35', 'B35', 'http://www.homedepot.com/catalog/productImages/400_compressed/d6/d64815ce-fa44-4d6e-b2e3-2ebeab87f055_400_compressed.jpg', 10.5000, 0, 0, 0.0000, 0),
-(7, 5, 'TCB35', 'Tip Candle B35', 'شمعة حرف ب35', '提示蜡烛B35', 'http://www.homedepot.com/catalog/productImages/1000/32/32a2096f-8f3f-48c5-ab82-e7c805940ee2_1000.jpg', 35.5000, 0, 0, 0.0000, 0);
+(1, 2, 'somecode', 'EMT', 'EMT', 'EMT', 'http://www.homedepot.com/catalog/productImages/400_compressed/98/980b4176-6b34-448d-9343-44e66448c05c_400_compressed.jpg', 140.0000, 0, 0, 0.0000, 8),
+(2, 2, 'UA9AEB-CTN', 'Elbow', 'Elbow', 'Elbow', 'http://www.homedepot.com/catalog/productImages/400_compressed/28/285b9026-f2bf-410c-8f40-17a5d6bb1e76_400_compressed.jpg', 65.5000, 0, 0, 0.0000, 7),
+(3, 3, 'B618RR', 'Hard Shell', 'Hard Shell', 'Hard Shell', 'http://www.homedepot.com/catalog/productImages/400_compressed/ee/ee4634fc-31d6-47cd-a76f-eca7e733693f_400_compressed.jpg', 99.9000, 0, 0, 0.0000, 6),
+(4, 3, '2304-42-00', 'AFC', 'AFC', 'AFC', 'http://www.homedepot.com/catalog/productImages/400_compressed/51/510d365f-6dc5-4af7-aaf5-1520c7daf8e8_400_compressed.jpg', 56.0000, 0, 0, 0.0000, 5),
+(5, 1, '521711234EW-25R', 'Square Box ', 'صندوق مربع', '方框', 'http://www.homedepot.com/catalog/productImages/400_compressed/0f/0f4e09df-9166-42f4-ac6a-af13624047fd_400_compressed.jpg', 95.0000, 0, 0, 0.0000, 4),
+(6, 5, 'T-L3B35A2T-5W', 'B35', 'ب35', 'B35', 'http://www.homedepot.com/catalog/productImages/400_compressed/d6/d64815ce-fa44-4d6e-b2e3-2ebeab87f055_400_compressed.jpg', 10.5000, 0, 0, 0.0000, 3),
+(7, 5, 'TCB35', 'Tip Candle B35', 'شمعة حرف ب35', '提示蜡烛B35', 'http://www.homedepot.com/catalog/productImages/1000/32/32a2096f-8f3f-48c5-ab82-e7c805940ee2_1000.jpg', 35.5000, 0, 0, 0.0000, 1),
+(8, 3, 'ED030584', 'Lincoln Electric', 'Lincoln Electric', 'Lincoln Electric', 'http://www.homedepot.com/catalog/productImages/400_compressed/d4/d4df8d4b-000b-4190-91b1-504827f38392_400_compressed.jpg', 13.0000, 10, 0, 10.0000, 0),
+(9, 3, 'ED030632', 'SuperArc Wire', 'SuperArc Wire', 'SuperArc Wire', 'http://www.homedepot.com/catalog/productImages/300/8d/8dad1991-85cb-4b79-b93d-619578a97eec_300.jpg', 8.0000, 45, 1, 5.0000, 2);
 
 -- --------------------------------------------------------
 

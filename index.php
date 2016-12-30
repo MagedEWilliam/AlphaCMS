@@ -49,6 +49,8 @@
 					<i class="dropdown icon"></i>
 					<div class="menu">
 						<a class="item" href="?method=manageNavOrder">Nav Order</a>
+						<a class="item" href="?method=manageProductsOrder">Products Order</a>
+						<div class="ui divider"></div>
 						<a class="item" href="?method=managePages">Pages</a>
 					</div>
 				</div>

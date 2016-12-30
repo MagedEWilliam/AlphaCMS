@@ -45,3 +45,14 @@ body{
 .ui-state-default:active{
 	box-shadow: 0px 5px 5px #aaa;
 }
+
+.cardy{
+	height: 50px !important;
+}
+.cardy img{
+	float: right;
+	height: 40px;
+}
+.cardy p, .cardy b, .cardy i{
+	float: left;
+}
