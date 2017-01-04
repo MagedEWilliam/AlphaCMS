@@ -68,19 +68,19 @@ class ClassName {
 			$sqlQuery .= " '".  $_POST['partID']   ."',  ";
 
 			if($_POST['takefrom'] == "editor"){
-				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['content'])   ."', ";
+				$sqlQuery .= " '<div style=\"all: unset;width: 100%;\">".  $mysqli->real_escape_string($_POST['content'])   ."</div>', ";
 			}elseif($_POST['takefrom'] == "code"){
 				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['HTMLCODE'])   ."', ";
 			}
 
 			if($_POST['takefromAr'] == "editorAr"){
-				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['contentAr'])   ."', ";
+				$sqlQuery .= " '<div style=\"all: unset;width: 100%;\">".  $mysqli->real_escape_string($_POST['contentAr'])   ."</div>', ";
 			}elseif($_POST['takefromAr'] == "codeAr"){
 				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['HTMLCODEAr'])   ."', ";
 			}
 
 			if($_POST['takefromCh'] == "editorCh"){
-				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['contentCh'])   ."' ";
+				$sqlQuery .= " '<div style=\"all: unset;width: 100%;\">".  $mysqli->real_escape_string($_POST['contentCh'])   ."</div>' ";
 			}elseif($_POST['takefromCh'] == "codeCh"){
 				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['HTMLCODECh'])   ."' ";
 			}
