@@ -4,15 +4,15 @@
 
 	$('title').html('Manage Nav');
 	$('#view').append(' <h1>Manage Pages</h1>\
-						<div class="form-group">\
-							<ul id="sortable">\
-							\
-							</ul>\
-						</div>\
-						<div class="form-group">\
-						\
-						</div>\
-						');
+		<div class="form-group">\
+		<ul id="sortable">\
+		\
+		</ul>\
+		</div>\
+		<div class="form-group">\
+		\
+		</div>\
+		');
 	$('[name=view]').prop('action', 'class_cms.php?method=manageNavOrder');
 	ajaxPages();
 	$('#foot').append('<br><input class="ui green button" type="submit">');
@@ -24,15 +24,15 @@ function viewManageProductsOrder(){
 
 	$('title').html('Manage Nav');
 	$('#view').append(' <h1>Manage Pages</h1>\
-						<div class="form-group">\
-							<ul id="sortable">\
-							\
-							</ul>\
-						</div>\
-						<div class="form-group">\
-						\
-						</div>\
-						');
+		<div class="form-group">\
+		<ul id="sortable">\
+		\
+		</ul>\
+		</div>\
+		<div class="form-group">\
+		\
+		</div>\
+		');
 	$('[name=view]').prop('action', 'class_cms.php?method=manageProductsOrder');
 	ajaxCards();
 	$('#rightview').append('<br><input class="ui green button" type="submit">');
@@ -70,12 +70,12 @@ function ajaxPages(){
 		for (var i = 0; i < data.length; i++)
 		{
 			var vie = '\
-					<li class="ui-state-default">\
-						<input type="hidden" name="pagenum['+i+']" value="'+data[i].ID+'">\
-						<i class="ui icon resize vertical"></i><b>'+data[i].Name+'</b>\
-						<div class="ui checkbox floatright">\
-						<label>Visibility</label>\
-							<input type="checkbox" name="visibility['+i+']"';
+			<li class="ui-state-default">\
+			<input type="hidden" name="pagenum['+i+']" value="'+data[i].ID+'">\
+			<i class="ui icon resize vertical"></i><b>'+data[i].Name+'</b>\
+			<div class="ui checkbox floatright">\
+			<label>Visibility</label>\
+			<input type="checkbox" name="visibility['+i+']"';
 
 			if(data[i].Available == '0'){
 				vie += '/>';
@@ -99,17 +99,93 @@ function viewNewPart(){
 	<select  class="ui fluid dropdown form-control" name="page"></select>\
 	\
 	<div class="field">\
-		<label>Part ID:</label> \
-		<input class="form-control typeahead" type="text" placeholder="Part ID" name="partID">\
+	<label>Part ID:</label> \
+	<input class="form-control typeahead" type="text" placeholder="Part ID" name="partID">\
 	</div>\
-\
+	\
 	<label for="contentAr"><b>Content</b></label>\
-		<textarea id="summernote" name="content"></textarea>\
+	\
+	<div class="ui top attached tabular menu">\
+		<div class="item item_ active" data-tab="en">English</div>\
+		<div class="item item_"        data-tab="ar">Arabic</div>\
+		<div class="item item_"        data-tab="ch">Chinese</div>\
+	</div>\
+	<div class="ui bottom attached tab segment active" data-tab="en">\
+	\
+		<div class="ui pointing secondary blue menu">\
+			<a class="eitheror item active" data-tab="editor">Editor</a>\
+			<a class="eitheror item" data-tab="code">Code</a>\
+		<input type="hidden" name="takefrom">\
+		</div>\
+		\
+		<div class="ui tab active" data-tab="editor"><textarea id="summernote" name="content"></textarea></div>\
+		<div class="ui tab" data-tab="code"><textarea name="HTMLCODE" placeholder="HTML CODE"></textarea></div>\
+	</div>\
+	\
+	\
+	<div class="ui bottom attached tab segment" data-tab="ar">\
+	\
+		<div class="ui pointing secondary blue menu">\
+			<a class="eitherorAr item active" data-tab="editorAr">Editor</a>\
+			<a class="eitherorAr item" data-tab="codeAr">Code</a>\
+		<input type="hidden" name="takefromAr">\
+		</div>\
+		\
+		<div class="ui tab active" data-tab="editorAr"><textarea id="summernoteAr" name="contentAr"></textarea></div>\
+		<div class="ui tab" data-tab="codeAr"><textarea name="HTMLCODEAr" placeholder="HTML CODE"></textarea></div>\
+	</div>\
+	\
+	\
+	<div class="ui bottom attached tab segment" data-tab="ch">\
+	\
+		<div class="ui pointing secondary blue menu">\
+			<a class="eitherorCh item active" data-tab="editorCh">Editor</a>\
+			<a class="eitherorCh item" data-tab="codeCh">Code</a>\
+		<input type="hidden" name="takefromCh">\
+		</div>\
+		\
+		<div class="ui tab active" data-tab="editorCh"><textarea id="summernoteCh" name="contentCh"></textarea></div>\
+		<div class="ui tab" data-tab="codeCh"><textarea name="HTMLCODECh" placeholder="HTML CODE"></textarea></div>\
+	</div>\
 	';
+	
 	$('#view').append(view);
+	$('.ui.top.attached.tabular.menu .item_').tab();
+	$('.ui.pointing.secondary.blue.menu .item').tab();
+	$('.ui.pointing.secondary.blue.menu .eitheror.item').click(changeActive);
+	$('.ui.pointing.secondary.blue.menu .eitherorAr.item').click(changeActiveAr);
+	$('.ui.pointing.secondary.blue.menu .eitherorCh.item').click(changeActiveCh);
+	changeActive();
+	changeActiveAr();
+	changeActiveCh();
+
 	$('.dropdown').dropdown({placeholder:'No Page Selected'});
 	ajaxPage(false);
 	tinymce.init({selector: '#summernote',
+		plugins: [
+		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+		'searchreplace wordcount visualblocks visualchars code fullscreen',
+		'insertdatetime media nonbreaking save table contextmenu directionality',
+		'emoticons template paste textcolor colorpicker textpattern imagetools'
+		],
+		height : 500,
+		toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		toolbar2: 'print preview media | forecolor backcolor emoticons',
+		image_advtab: true
+	});
+	tinymce.init({selector: '#summernoteAr',
+		plugins: [
+		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+		'searchreplace wordcount visualblocks visualchars code fullscreen',
+		'insertdatetime media nonbreaking save table contextmenu directionality',
+		'emoticons template paste textcolor colorpicker textpattern imagetools'
+		],
+		height : 500,
+		toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		toolbar2: 'print preview media | forecolor backcolor emoticons',
+		image_advtab: true
+	});
+	tinymce.init({selector: '#summernoteCh',
 		plugins: [
 		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
 		'searchreplace wordcount visualblocks visualchars code fullscreen',
@@ -126,7 +202,25 @@ function viewNewPart(){
 	$('[name=view]').prop('action', 'class_cms.php?method=setPart');
 }
 
+function changeActive(){
+	var val = $('.ui.pointing.secondary.blue.menu .eitheror.active').attr('data-tab');
+	$('[name=takefrom]').val(val);
+	console.log($('[name=takefrom]').val());
+}
+function changeActiveAr(){
+	var val = $('.ui.pointing.secondary.blue.menu .eitherorAr.active').attr('data-tab');
+	$('[name=takefromAr]').val(val);
+	console.log($('[name=takefrom]').val());
+}
+function changeActiveCh(){
+	var val = $('.ui.pointing.secondary.blue.menu .eitherorCh.active').attr('data-tab');
+	$('[name=takefromCh]').val(val);
+	console.log($('[name=takefrom]').val());
+}
+
 var heyLookImGlopal_State_content = [];
+var heyLookImGlopal_State_contentAr = [];
+var heyLookImGlopal_State_contentCh = [];
 
 function getParts(){
 	//get pages
@@ -141,7 +235,49 @@ function getParts(){
 	<select  class="ui fluid dropdown form-control" name="part"></select>\
 	\
 	<label for="contentAr"><b>Content</b></label>\
-	<textarea id="summernote" name="content"></textarea>\
+	\
+	<div class="ui top attached tabular menu">\
+		<div class="item item_ active" data-tab="en">English</div>\
+		<div class="item item_"        data-tab="ar">Arabic</div>\
+		<div class="item item_"        data-tab="ch">Chinese</div>\
+	</div>\
+	<div class="ui bottom attached tab segment active" data-tab="en">\
+	\
+		<div class="ui pointing secondary blue menu">\
+			<a class="eitheror item active" data-tab="editor">Editor</a>\
+			<a class="eitheror item" data-tab="code">Code</a>\
+		<input type="hidden" name="takefrom">\
+		</div>\
+		\
+		<div class="ui tab active" data-tab="editor"><textarea id="summernote" name="content"></textarea></div>\
+		<div class="ui tab" data-tab="code"><textarea name="HTMLCODE" placeholder="HTML CODE"></textarea></div>\
+	</div>\
+	\
+	\
+	<div class="ui bottom attached tab segment" data-tab="ar">\
+	\
+		<div class="ui pointing secondary blue menu">\
+			<a class="eitherorAr item active" data-tab="editorAr">Editor</a>\
+			<a class="eitherorAr item" data-tab="codeAr">Code</a>\
+		<input type="hidden" name="takefromAr">\
+		</div>\
+		\
+		<div class="ui tab active" data-tab="editorAr"><textarea id="summernoteAr" name="contentAr"></textarea></div>\
+		<div class="ui tab" data-tab="codeAr"><textarea name="HTMLCODEAr" placeholder="HTML CODE"></textarea></div>\
+	</div>\
+	\
+	\
+	<div class="ui bottom attached tab segment" data-tab="ch">\
+	\
+		<div class="ui pointing secondary blue menu">\
+			<a class="eitherorCh item active" data-tab="editorCh">Editor</a>\
+			<a class="eitherorCh item" data-tab="codeCh">Code</a>\
+		<input type="hidden" name="takefromCh">\
+		</div>\
+		\
+		<div class="ui tab active" data-tab="editorCh"><textarea id="summernoteCh" name="contentCh"></textarea></div>\
+		<div class="ui tab" data-tab="codeCh"><textarea name="HTMLCODECh" placeholder="HTML CODE"></textarea></div>\
+	</div>\
 	';
 
 	//view to view
@@ -157,27 +293,81 @@ function getParts(){
 		toolbar2: 'print preview media | forecolor backcolor emoticons',
 		image_advtab: true
 	});
+	tinymce.init({selector: '#summernoteAr',
+		plugins: [
+		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+		'searchreplace wordcount visualblocks visualchars code fullscreen',
+		'insertdatetime media nonbreaking save table contextmenu directionality',
+		'emoticons template paste textcolor colorpicker textpattern imagetools'
+		],
+		height : 500,
+		toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		toolbar2: 'print preview media | forecolor backcolor emoticons',
+		image_advtab: true
+	});
+	tinymce.init({selector: '#summernoteCh',
+		plugins: [
+		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+		'searchreplace wordcount visualblocks visualchars code fullscreen',
+		'insertdatetime media nonbreaking save table contextmenu directionality',
+		'emoticons template paste textcolor colorpicker textpattern imagetools'
+		],
+		height : 500,
+		toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		toolbar2: 'print preview media | forecolor backcolor emoticons',
+		image_advtab: true
+	});
 
 	$('#view').append(view);
+	$('.ui.top.attached.tabular.menu .item_').tab();
+	$('.ui.pointing.secondary.blue.menu .item').tab();
+	$('.ui.pointing.secondary.blue.menu .eitheror.item').click(changeActive);
+	$('.ui.pointing.secondary.blue.menu .eitherorAr.item').click(changeActiveAr);
+	$('.ui.pointing.secondary.blue.menu .eitherorCh.item').click(changeActiveCh);
+	changeActive();
+	changeActiveAr();
+	changeActiveCh();
+
 	$('.dropdown').dropdown({placeholder:'Nothing Selected'});
 	$('[name=page]').change(ajaxPart);
+
 	$('[name=part]').change(function(){ 
 		tinymce.get("summernote").setContent('');
+		tinymce.get("summernoteAr").setContent('');
+		tinymce.get("summernoteCh").setContent('');
+
 		tinymce.get("summernote").execCommand('mceInsertContent', false, heyLookImGlopal_State_content[ $('[name=part]').val() ]);
+		tinymce.get("summernoteAr").execCommand('mceInsertContent', false, heyLookImGlopal_State_contentAr[ $('[name=part]').val() ]);
+		tinymce.get("summernoteCh").execCommand('mceInsertContent', false, heyLookImGlopal_State_contentCh[ $('[name=part]').val() ]);
+		
+		$("[name=HTMLCODE]").val('');
+		$("[name=HTMLCODEAr]").val('');
+		$("[name=HTMLCODECh]").val('');
+
+		$("[name=HTMLCODE]").val( heyLookImGlopal_State_content[ $('[name=part]').val()] );
+		$("[name=HTMLCODEAr]").val( heyLookImGlopal_State_contentAr[ $('[name=part]').val()] );
+		$("[name=HTMLCODECh]").val( heyLookImGlopal_State_contentCh[ $('[name=part]').val()] );
 	});
 	ajaxPage(false);
+	ajaxPart();
 	widdenview('sixteen','three');
 	$('#rightview').append('<div class="field"><input class="ui green button" type="submit" value="Save"></div>');
 	$('[name=view]').prop('action', 'class_cms.php?method=uptPart');
 }
 
 function ajaxPart(){
+	$('[name=part]').html('');
 	$.getJSON("class_cms.php?method=getPart&page=" + $('[name=page]').val(), function(data){
 		$('[name=part]').append('<option value="0">No Part Selected</option>');
+		console.log("class_cms.php?method=getPart&page=" + $('[name=page]').val());
 		heyLookImGlopal_State_content= [];
+		heyLookImGlopal_State_contentAr= [];
+		heyLookImGlopal_State_contentCh= [];
 		for (var i = 0; i < data.length; i++) {
 			$('[name=part]').append('<option value="'+data[i].ID+'">'+data[i].partid+'</option>');
 			heyLookImGlopal_State_content[ data[i].ID ] = data[i].content.replace(/\\/g,'"').replace(/""/g, '"');
+			heyLookImGlopal_State_contentAr[ data[i].ID ] = data[i].contentAr.replace(/\\/g,'"').replace(/""/g, '"');
+			heyLookImGlopal_State_contentCh[ data[i].ID ] = data[i].contentCh.replace(/\\/g,'"').replace(/""/g, '"');
 		}
 	});
 }
@@ -187,13 +377,13 @@ function ajaxCards(){
 		for (var i = 0; i < data.length; i++)
 		{
 			var vie = '\
-					<li class="ui-state-default cardy">\
-						<input type="hidden" name="pagenum['+i+']" value="'+data[i].ID+'">\
-						<i class="ui icon resize vertical"></i><b>'+data[i].Name+'</b>\
-						<p> : </p>\
-						<p>'+data[i].code+'</p>\
-						<img src="'+data[i].image+'" />\
-					</li>';
+			<li class="ui-state-default cardy">\
+			<input type="hidden" name="pagenum['+i+']" value="'+data[i].ID+'">\
+			<i class="ui icon resize vertical"></i><b>'+data[i].Name+'</b>\
+			<p> : </p>\
+			<p>'+data[i].code+'</p>\
+			<img src="'+data[i].image+'" />\
+			</li>';
 			
 			$( '#sortable' ).append(vie);
 		}

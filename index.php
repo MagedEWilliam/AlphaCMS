@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="semantic/semantic.min.js"></script>
 	<script type="text/javascript" src="typeahead.bundle.js"></script>
 	<script type="text/javascript" src="tinymce/tinymce.min.js"></script>
+
 </head>
 <body style="overflow-y: scroll;">
 

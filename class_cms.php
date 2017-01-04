@@ -57,6 +57,8 @@ class ClassName {
 			$sqlQuery .= " `page` " ;
 			$sqlQuery .= ",`partid`  " ;
 			$sqlQuery .= ", `content`  " ;
+			$sqlQuery .= ", `contentAr`  " ;
+			$sqlQuery .= ", `contentCh`  " ;
 			$sqlQuery .= ")" ;
 			
 			$sqlQuery .= " VALUES ";
@@ -64,7 +66,26 @@ class ClassName {
 			$sqlQuery .= "(" ;
 			$sqlQuery .= " ".  $_POST['page']      .",  ";
 			$sqlQuery .= " '".  $_POST['partID']   ."',  ";
-			$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['content'])   ."' ";
+
+			if($_POST['takefrom'] == "editor"){
+				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['content'])   ."', ";
+			}elseif($_POST['takefrom'] == "code"){
+				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['HTMLCODE'])   ."', ";
+			}
+
+			if($_POST['takefromAr'] == "editorAr"){
+				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['contentAr'])   ."', ";
+			}elseif($_POST['takefromAr'] == "codeAr"){
+				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['HTMLCODEAr'])   ."', ";
+			}
+
+			if($_POST['takefromCh'] == "editorCh"){
+				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['contentCh'])   ."' ";
+			}elseif($_POST['takefromCh'] == "codeCh"){
+				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['HTMLCODECh'])   ."' ";
+			}
+
+
 			$sqlQuery .= ")" ;
 
 			$result = $mysqli->query($sqlQuery);
@@ -586,6 +607,8 @@ class ClassName {
 		$res = [];
 		if($_GET['page'] == 'all'){
 			$sqlQuery = "SELECT * FROM parts";
+		}elseif($_GET['page'] == 'null'){
+			$sqlQuery = "SELECT * FROM parts Where page = 0";
 		}else{
 			$sqlQuery = "SELECT * FROM parts Where page = " . $_GET['page'];
 		}
@@ -595,7 +618,9 @@ class ClassName {
 				$rowscape = array("ID"=>$row['ID'],
 					"page"=>$row['page'],
 					"partid"=>$row['partid'],
-					"content"=>addslashes($row['content']) );
+					"content"=>addslashes($row['content']),
+					"contentAr"=>addslashes($row['contentAr']),
+					"contentCh"=>addslashes($row['contentCh']) );
 				array_push($res, $rowscape );
 			}
 		}	
@@ -607,7 +632,28 @@ class ClassName {
 		$db  = Database::getInstance();
 		$mysqli = $db->getConnection();
 
-		$sqlQuery = "Update parts set content = '".addslashes($_POST['content'])."' Where ID = " . $_POST['part'];
+		$sqlQuery = "Update parts set ";
+
+		if($_POST['takefrom'] == "editor"){
+			$sqlQuery .= " content = '".  $mysqli->real_escape_string($_POST['content'])   ."' ";
+		}elseif($_POST['takefrom'] == "code"){
+			$sqlQuery .= " content = '".  $mysqli->real_escape_string($_POST['HTMLCODE'])   ."' ";
+		}
+
+		if($_POST['takefromAr'] == "editorAr"){
+			$sqlQuery .= ", contentAr = '".  $mysqli->real_escape_string($_POST['contentAr'])   ."' ";
+		}elseif($_POST['takefromAr'] == "codeAr"){
+			$sqlQuery .= ", contentAr = '".  $mysqli->real_escape_string($_POST['HTMLCODEAr'])   ."' ";
+		}
+
+		if($_POST['takefromCh'] == "editorCh"){
+			$sqlQuery .= ", contentCh = '".  $mysqli->real_escape_string($_POST['contentCh'])   ."' ";
+		}elseif($_POST['takefromCh'] == "codeCh"){
+			$sqlQuery .= ", contentCh = '".  $mysqli->real_escape_string($_POST['HTMLCODECh'])   ."' ";
+		}
+
+
+		$sqlQuery .= " Where ID = " . $_POST['part'];
 
 		$result = $mysqli->query($sqlQuery);
 		header('Location: index.php?method=manageParts&status=success');
