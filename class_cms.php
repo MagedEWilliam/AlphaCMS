@@ -74,7 +74,7 @@ class ClassName {
 			}
 
 			if($_POST['takefromAr'] == "editorAr"){
-				$sqlQuery .= " '<div style=\"all: unset;width: 100%;\">".  $mysqli->real_escape_string($_POST['contentAr'])   ."</div>', ";
+				$sqlQuery .= " '<div style=\"all: unset;width: 100%;direction: rtl;\">".  $mysqli->real_escape_string($_POST['contentAr'])   ."</div>', ";
 			}elseif($_POST['takefromAr'] == "codeAr"){
 				$sqlQuery .= " '".  $mysqli->real_escape_string($_POST['HTMLCODEAr'])   ."', ";
 			}

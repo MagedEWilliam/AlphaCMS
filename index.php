@@ -1,3 +1,12 @@
+<?php
+if(!isset($_SESSION)) 
+{ 
+  session_start(); 
+} 
+if(!isset($_SESSION['username']) ){
+  header( "Location: login.php" );
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,12 +42,12 @@
 					<div class="menu">
 						<a class="item" href="?method=setCategory">	  category        </a>
 						<a class="item" href="?method=setProperty">	  properties      </a>
-						<a class="item" href="?method=setSubCategory"> items           </a>
+						<a class="item" href="?method=setSubCategory"> items          </a>
 						<div class="ui divider"></div>
 						<a class="item" href="?method=setLocale">	  locale          </a>
 						<div class="ui divider"></div>
 						<a class="item" href="?method=setPage">		  Pages           </a>
-						<a class="item" href="?method=setPart">		  Part           </a>
+						<a class="item" href="?method=setPart">		  Part            </a>
 						<!-- <a class="item" href="?method=setContent">  Write content      </a> -->
 					</div>
 				</div>
@@ -66,6 +75,8 @@
 					</div>
 				</div>
 
+
+				<a class="ui link right item" href="logout.php"><span class="text">Logout</span></a>
 
 			</div>
 
