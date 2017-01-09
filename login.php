@@ -5,7 +5,7 @@ if(!isset($_SESSION))
   session_start(); 
 } 
 $my_username = null;
-if(isset($_SESSION['username']) ){
+if(isset($_SESSION['CMS']['username']) ){
   header( "Location: index.php" );
 }
 
@@ -16,9 +16,9 @@ function trytologin(){
 
    if ($_POST['username'] == 'Admin' && $_POST['password'] == 'mnopQ123 ') {
 
-    $_SESSION['valid'] = true;
-    $_SESSION['timeout'] = time();
-    $_SESSION['username'] = 'Admin';
+    $_SESSION['CMS']['valid'] = true;
+    $_SESSION['CMS']['timeout'] = time();
+    $_SESSION['CMS']['username'] = 'Admin';
 
     echo '<div class="ui success visible message">You have entered valid use name and password</div>';
     header('Location: index.php');
