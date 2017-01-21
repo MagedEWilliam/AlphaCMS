@@ -77,7 +77,7 @@ function trytologin(){
       <form class="ui large form"
       id="log"
       data-ajax="true"
-      action="Login.php"
+      action="login.php"
       method="post">
 
       <div class="ui stacked segment">

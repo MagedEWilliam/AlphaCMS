@@ -12,6 +12,7 @@ if(!isset($_SESSION['CMS']['username']) ){
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<link rel="icon" type="image/png" href="favicon.png" />
 	<title>CMS</title>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -75,8 +76,9 @@ if(!isset($_SESSION['CMS']['username']) ){
 					</div>
 				</div>
 
+				<a class="ui link item ordernav" href="#"><span class="text">Order(0)</span></a>
 
-				<a class="ui link right item" href="logout.php"><span class="text">Logout</span></a>
+				<a class="ui link right item" href="logout.php"><span class="text"><i class="ui icon lock"></i>Logout</span></a>
 
 			</div>
 
@@ -108,6 +110,7 @@ if(!isset($_SESSION['CMS']['username']) ){
 	<script>
 		$('.dropdown').dropdown();
 	</script>
+	<script src="order.js"             ></script>
 	<script src="components.js"        ></script>
 	<script src="components_manage.js" ></script>
 	<script src="components_edit.js"   ></script>

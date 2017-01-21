@@ -186,6 +186,7 @@ class ClassName {
 			$sqlQuery .= ", OrderID ";
 			$sqlQuery .= ", Available ";
 			$sqlQuery .= ", hascontent ";
+			$sqlQuery .= ", parent ";
 			$sqlQuery .= ")" ;
 
 			$sqlQuery .= " VALUES ";
@@ -198,6 +199,7 @@ class ClassName {
 			$sqlQuery .= ", 0";
 			$sqlQuery .= ", 1";
 			$sqlQuery .= ", 1.00";
+			$sqlQuery .= ", 0";
 			$sqlQuery .= ")" ;
 
 			$result = $mysqli->query($sqlQuery);
@@ -637,19 +639,19 @@ class ClassName {
 		if($_POST['takefrom'] == "editor"){
 			$sqlQuery .= " content = '".  $mysqli->real_escape_string($_POST['content'])   ."' ";
 		}elseif($_POST['takefrom'] == "code"){
-			$sqlQuery .= " content = '".  $mysqli->real_escape_string($_POST['HTMLCODE'])   ."' ";
+			$sqlQuery .= " content = '".  addslashes($_POST['HTMLCODE'])   ."' ";
 		}
 
 		if($_POST['takefromAr'] == "editorAr"){
 			$sqlQuery .= ", contentAr = '".  $mysqli->real_escape_string($_POST['contentAr'])   ."' ";
 		}elseif($_POST['takefromAr'] == "codeAr"){
-			$sqlQuery .= ", contentAr = '".  $mysqli->real_escape_string($_POST['HTMLCODEAr'])   ."' ";
+			$sqlQuery .= ", contentAr = '".  addslashes($_POST['HTMLCODEAr'])   ."' ";
 		}
 
 		if($_POST['takefromCh'] == "editorCh"){
 			$sqlQuery .= ", contentCh = '".  $mysqli->real_escape_string($_POST['contentCh'])   ."' ";
 		}elseif($_POST['takefromCh'] == "codeCh"){
-			$sqlQuery .= ", contentCh = '".  $mysqli->real_escape_string($_POST['HTMLCODECh'])   ."' ";
+			$sqlQuery .= ", contentCh = '".  addslashes($_POST['HTMLCODECh'])   ."' ";
 		}
 
 

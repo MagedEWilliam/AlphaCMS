@@ -3,7 +3,7 @@
 	$('#navbar .dropdown:eq(1) .dropdown-menu li:eq(0)').addClass('active');
 
 	$('title').html('Manage Nav');
-	$('#view').append(' <h1>Manage Pages</h1>\
+	$('#view').append(' <h1>Manage Nav Order</h1>\
 		<div class="form-group">\
 		<ul id="sortable">\
 		\
@@ -23,7 +23,7 @@ function viewManageProductsOrder(){
 	$('#navbar .dropdown:eq(1) .dropdown-menu li:eq(0)').addClass('active');
 
 	$('title').html('Manage Nav');
-	$('#view').append(' <h1>Manage Pages</h1>\
+	$('#view').append(' <h1>Manage Product Order</h1>\
 		<div class="form-group">\
 		<ul id="sortable">\
 		\
@@ -43,7 +43,7 @@ function viewManageProductsOrder(){
 function viewManagePage(){
 	$('title').html('Manage Pages');
 	var view = '\
-	<h1>Manage Pages</h1>\
+	<h1>Manage Page Content</h1>\
 	<label for="page"><b>Choose a page:</b></label> \
 	<select  class="ui fluid dropdown form-control" name="page"></select>\
 	<ul id="sortable" class="connectedSortable">\
@@ -115,7 +115,7 @@ function viewNewPart(){
 		<div class="ui pointing secondary blue menu">\
 			<a class="eitheror item active" data-tab="editor">Editor</a>\
 			<a class="eitheror item" data-tab="code">Code</a>\
-		<input type="hidden" name="takefrom">\
+		<input type="hidden" name="takefrom" value="code">\
 		</div>\
 		\
 		<div class="ui tab active" data-tab="editor"><textarea id="summernote" name="content"></textarea></div>\
@@ -128,7 +128,7 @@ function viewNewPart(){
 		<div class="ui pointing secondary blue menu">\
 			<a class="eitherorAr item active" data-tab="editorAr">Editor</a>\
 			<a class="eitherorAr item" data-tab="codeAr">Code</a>\
-		<input type="hidden" name="takefromAr">\
+		<input type="hidden" name="takefromAr" value="codeAr">\
 		</div>\
 		\
 		<div class="ui tab active" data-tab="editorAr"><textarea id="summernoteAr" name="contentAr"></textarea></div>\
@@ -141,7 +141,7 @@ function viewNewPart(){
 		<div class="ui pointing secondary blue menu">\
 			<a class="eitherorCh item active" data-tab="editorCh">Editor</a>\
 			<a class="eitherorCh item" data-tab="codeCh">Code</a>\
-		<input type="hidden" name="takefromCh">\
+		<input type="hidden" name="takefromCh" value="codeCh">\
 		</div>\
 		\
 		<div class="ui tab active" data-tab="editorCh"><textarea id="summernoteCh" name="contentCh"></textarea></div>\
@@ -244,39 +244,39 @@ function getParts(){
 	<div class="ui bottom attached tab segment active" data-tab="en">\
 	\
 		<div class="ui pointing secondary blue menu">\
-			<a class="eitheror item active" data-tab="editor">Editor</a>\
-			<a class="eitheror item" data-tab="code">Code</a>\
-		<input type="hidden" name="takefrom">\
+			<a class="eitheror item" data-tab="editor">Editor</a>\
+			<a class="eitheror item active" data-tab="code">Code</a>\
+		<input type="hidden" name="takefrom" value="code">\
 		</div>\
 		\
-		<div class="ui tab active" data-tab="editor"><textarea id="summernote" name="content"></textarea></div>\
-		<div class="ui tab" data-tab="code"><textarea name="HTMLCODE" placeholder="HTML CODE"></textarea></div>\
+		<div class="ui tab" data-tab="editor"><textarea id="summernote" name="content"></textarea></div>\
+		<div class="ui tab active" data-tab="code"><textarea name="HTMLCODE" placeholder="HTML CODE"></textarea></div>\
 	</div>\
 	\
 	\
 	<div class="ui bottom attached tab segment" data-tab="ar">\
 	\
 		<div class="ui pointing secondary blue menu">\
-			<a class="eitherorAr item active" data-tab="editorAr">Editor</a>\
-			<a class="eitherorAr item" data-tab="codeAr">Code</a>\
-		<input type="hidden" name="takefromAr">\
+			<a class="eitherorAr item" data-tab="editorAr">Editor</a>\
+			<a class="eitherorAr item active" data-tab="codeAr">Code</a>\
+		<input type="hidden" name="takefromAr" value="codeAr">\
 		</div>\
 		\
-		<div class="ui tab active" data-tab="editorAr"><textarea id="summernoteAr" name="contentAr"></textarea></div>\
-		<div class="ui tab" data-tab="codeAr"><textarea name="HTMLCODEAr" placeholder="HTML CODE"></textarea></div>\
+		<div class="ui tab" data-tab="editorAr"><textarea id="summernoteAr" name="contentAr"></textarea></div>\
+		<div class="ui tab active" data-tab="codeAr"><textarea name="HTMLCODEAr" placeholder="HTML CODE"></textarea></div>\
 	</div>\
 	\
 	\
 	<div class="ui bottom attached tab segment" data-tab="ch">\
 	\
 		<div class="ui pointing secondary blue menu">\
-			<a class="eitherorCh item active" data-tab="editorCh">Editor</a>\
-			<a class="eitherorCh item" data-tab="codeCh">Code</a>\
-		<input type="hidden" name="takefromCh">\
+			<a class="eitherorCh item" data-tab="editorCh">Editor</a>\
+			<a class="eitherorCh item active" data-tab="codeCh">Code</a>\
+		<input type="hidden" name="takefromCh" value="codeCh">\
 		</div>\
 		\
-		<div class="ui tab active" data-tab="editorCh"><textarea id="summernoteCh" name="contentCh"></textarea></div>\
-		<div class="ui tab" data-tab="codeCh"><textarea name="HTMLCODECh" placeholder="HTML CODE"></textarea></div>\
+		<div class="ui tab" data-tab="editorCh"><textarea id="summernoteCh" name="contentCh"></textarea></div>\
+		<div class="ui tab active" data-tab="codeCh"><textarea name="HTMLCODECh" placeholder="HTML CODE"></textarea></div>\
 	</div>\
 	';
 

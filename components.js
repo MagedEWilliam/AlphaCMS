@@ -162,7 +162,7 @@ function viewAddCategory(){
 		<input type="hidden" name="nameAr-key">\
 		'+gemeinput('Chinese Name', 'nameCh', '请用中文写', 'typeahead')+'\
 		<input type="hidden" name="nameCh-key"> </div> \
-		<div class="field">\
+		<div class="field" style="display:none;">\
 		<label>Image URL:</label> \
 		<textarea class="form-control" name="url" placeholder="Enter image URL"></textarea>\
 		</div>');
@@ -214,7 +214,7 @@ function viewAddProperty(){
 		<input type="hidden" name="valueCh-key"> \
 		</div> \
 		\
-		<div class="field"> \
+		<div class="field" style="display:none;"> \
 		<label>Image URL:</label> \
 		<textarea class="form-control" placeholder="Enter image URL" name="url" ></textarea>\
 		</div>\
