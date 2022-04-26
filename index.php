@@ -1,33 +1,31 @@
 <?php
-if(!isset($_SESSION)) 
-{ 
-  session_start(); 
-} 
-if(!isset($_SESSION['CMS']['username']) ){
-  header( "Location: login.php" );
+if (!isset($_SESSION)) {
+	session_start();
+}
+if (!isset($_SESSION['CMS']['username'])) {
+	header("Location: login.php");
 }
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 	<link rel="icon" type="image/png" href="favicon.png" />
 	<title>CMS</title>
-	
+
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<!-- <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="typeahead.css">
-	<!-- 	<link rel="stylesheet" type="text/css" href="summernote-master/dist/summernote.css"> -->
 	<script type="text/javascript" src="jquery_min.js"></script>
 	<script type="text/javascript" src="sortabe/jquery-ui.min.js"></script>
-	<!-- <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script> -->
 	<script type="text/javascript" src="semantic/semantic.min.js"></script>
 	<script type="text/javascript" src="typeahead.bundle.js"></script>
-	<script type="text/javascript" src="tinymce/tinymce.min.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/tinymce@5.6.0/tinymce.min.js"></script>
 
 </head>
+
 <body style="overflow-y: scroll;">
 
 	<div class="ui container">
@@ -41,15 +39,14 @@ if(!isset($_SESSION['CMS']['username']) ){
 					<span class="text">Add</span>
 					<i class="dropdown icon"></i>
 					<div class="menu">
-						<a class="item" href="?method=setCategory">	  category        </a>
-						<a class="item" href="?method=setProperty">	  properties      </a>
-						<a class="item" href="?method=setSubCategory"> items          </a>
+						<a class="item" href="?method=setCategory"> category </a>
+						<a class="item" href="?method=setProperty"> properties </a>
+						<a class="item" href="?method=setSubCategory"> items </a>
 						<div class="ui divider"></div>
-						<a class="item" href="?method=setLocale">	  locale          </a>
+						<a class="item" href="?method=setLocale"> locale </a>
 						<div class="ui divider"></div>
-						<a class="item" href="?method=setPage">		  Pages           </a>
-						<a class="item" href="?method=setPart">		  Part            </a>
-						<!-- <a class="item" href="?method=setContent">  Write content      </a> -->
+						<a class="item" href="?method=setPage"> Pages </a>
+						<a class="item" href="?method=setPart"> Part </a>
 					</div>
 				</div>
 
@@ -87,9 +84,9 @@ if(!isset($_SESSION['CMS']['username']) ){
 		<br>
 		<br>
 		<form action="class_cms.php" method="post" enctype="multipart/form-data" name="view" class="ui form grid" autocomplete="off">
-			
+
 			<div id="message" style="width: 100%" class="ui hidden message"></div>
-			
+
 			<div class="sixteen wide column ui grid">
 				<div id="view" class="seven wide column">
 				</div>
@@ -110,12 +107,13 @@ if(!isset($_SESSION['CMS']['username']) ){
 	<script>
 		$('.dropdown').dropdown();
 	</script>
-	<script src="order.js"             ></script>
-	<script src="components.js"        ></script>
-	<script src="components_manage.js" ></script>
-	<script src="components_edit.js"   ></script>
-	<script src="cardPreview.js"       ></script>
-	<script src="setup.js"             ></script>
-	<script src="cms.js"               ></script>
+	<script src="order.js"></script>
+	<script src="components.js"></script>
+	<script src="components_manage.js"></script>
+	<script src="components_edit.js"></script>
+	<script src="cardPreview.js"></script>
+	<script src="setup.js"></script>
+	<script src="cms.js"></script>
 </body>
+
 </html>

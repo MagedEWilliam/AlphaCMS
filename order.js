@@ -1,13 +1,13 @@
-function updateNotifyOrder(num){ 
-	$('.ordernav span').text('Order('+num+')'); 
+function updateNotifyOrder(num) {
+	$('.ordernav span').text(`Order(${num})`);
 }
 
-function newOrderNotification(){
-	$('.ordernav').css('background','#ff9e9e');
+function newOrderNotification() {
+	$('.ordernav').css('background', '#ff9e9e');
 }
 
-function normOrderNotification(){
-	$('.ordernav').css('background','rgba(0,0,0,0)');
+function normOrderNotification() {
+	$('.ordernav').css('background', 'rgba(0,0,0,0)');
 }
 
 /*

@@ -1,36 +1,36 @@
-<?php 
+<?php
 header("Content-Type: text/html; charset=UTF-8");
-if(!isset($_SESSION)) 
-{ 
-  session_start(); 
-} 
+if (!isset($_SESSION)) {
+  session_start();
+}
 $my_username = null;
-if(isset($_SESSION['CMS']['username']) ){
-  header( "Location: index.php" );
+if (isset($_SESSION['CMS']['username'])) {
+  header("Location: index.php");
 }
 
-function trytologin(){
+function trytologin()
+{
   $msg = '';
 
   if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
-   if ($_POST['username'] == 'Admin' && $_POST['password'] == 'mnopQ123 ') {
+    if ($_POST['username'] == 'Admin' && $_POST['password'] == 'mnopQ123 ') {
 
-    $_SESSION['CMS']['valid'] = true;
-    $_SESSION['CMS']['timeout'] = time();
-    $_SESSION['CMS']['username'] = 'Admin';
+      $_SESSION['CMS']['valid'] = true;
+      $_SESSION['CMS']['timeout'] = time();
+      $_SESSION['CMS']['username'] = 'Admin';
 
-    echo '<div class="ui success visible message">You have entered valid use name and password</div>';
-    header('Location: index.php');
-    }else {
+      echo '<div class="ui success visible message">You have entered valid use name and password</div>';
+      header('Location: index.php');
+    } else {
       echo '<div class="ui error visible message">Wrong username or password</div>';
     }
- }
- 
+  }
 }
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Standard Meta -->
   <meta charset="utf-8" />
@@ -51,75 +51,64 @@ function trytologin(){
     body {
       background-color: #f0f0f0;
     }
-    body > .grid {
+
+    body>.grid {
       height: 100%;
     }
+
     .image {
       margin-top: -100px;
     }
+
     .column {
       max-width: 450px;
     }
-
   </style>
 
 </head>
+
 <body>
 
   <div class="ui middle aligned center aligned grid">
     <div class="column">
       <h2 class="ui image header">
         <img src="favicon.png" class="image">
-        <div class="content" >
+        <div class="content">
           ALPHA's CMS:
         </div>
       </h2>
-      <form class="ui large form"
-      id="log"
-      data-ajax="true"
-      action="login.php"
-      method="post">
+      <form class="ui large form" id="log" data-ajax="true" action="login.php" method="post">
 
-      <div class="ui stacked segment">
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            <input type="text"
-            placeholder="Username"
-            name="username"
-            id="username"
-            tabindex="1" autofocus>
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" placeholder="Username" name="username" id="username" tabindex="1" autofocus>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            <input type="password"
-            placeholder="Password" 
-            name="password"
-            id="password"
-            autocomplete="off"
-            tabindex="2">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" placeholder="Password" name="password" id="password" autocomplete="off" tabindex="2">
+            </div>
           </div>
+          <div class="ui fluid large submit button" tabindex="3">Login</div>
         </div>
-        <div class="ui fluid large submit button"
-        tabindex="3">Login</div>
-      </div>
 
 
-      <div class="ui negative message hidden" id="msg_error">
-        <ul class="list">
-          <li>Something is wrong, please try again.</li>
-        </ul>
-      </div>
-      <?php
-      if(isset($_POST)){
-        trytologin();
-      }
-      ?>
-    </form>
+        <div class="ui negative message hidden" id="msg_error">
+          <ul class="list">
+            <li>Something is wrong, please try again.</li>
+          </ul>
+        </div>
+        <?php
+        if (isset($_POST)) {
+          trytologin();
+        }
+        ?>
+      </form>
+    </div>
   </div>
-</div>
 
 </body>
 
